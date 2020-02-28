@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>App Shell</title>
+  <link rel="manifest" href="/manifest.json">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link href="/css/material-css.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="/css/app.css">
+	<script src="/js/main.bundle.js"></script>
+</head>
+<body>
+	<div id="container_outer">
+    <div id="container">
+    	<header class="header">
+	      <span class="header_title">My App</span>
+	    </header>
+	    <main class="main">
+	      <div id="list">
+	  			<form action="" class="list_form">
+  					<input type="hidden" name="_method" value="POST">
+  					<input type="hidden" name="key" value="">
+	  				<span class="list_form__field">
+	            <input type="text" name="name" value="" placeholder="Name" required="true">
+	          </span>
+	          <span class="list_form__field">
+	  				  <button type="submit">Save</button>
+	          </span>
+	  			</form>
+	      </div>
+	    </main>
+
+	    <div class="dialog_container" id="dialog__container">
+	    </div>
+
+	    <div id="loader" class="progressbar">
+	    </div>
+			<script data-script>
+				(() => {
+          let mockData = {data: 
+            [
+              {
+                name: "Weekend Beer List",
+                key: Math.random()
+              }, {
+                name: "Monday Beer List",
+                key: Math.random()
+              }, {
+                name: "Tuesday Beer List",
+                key: Math.random()
+              }, {
+                name: "Wednesday Beer List",
+                key: Math.random()
+              }
+            ]
+          }
+
+          const container = document.querySelector('#list'),
+            form = container.querySelector('form'),
+            URL = '/api?'+ user.getToken();
+					form.addEventListener('submit', (e) => {
+						e.preventDefault();
+
+						form.setAttribute('action', URL)
+
+						pubSub.publish('fetch_data')
+					})
+
+          pubSub.subscribe('edit_item', (item) => {
+            // Populate form fields
+  					form['_method'].value = 'PUT';
+
+  					form['key'].value = item.key;
+  					form['name'].value = item.name;
+          })
+
+					pubSub.subscribe('fetch_data', () => {
+						// Populate page
+  					// Remove existing list
+  					let child = container.querySelector('ul')
+  					if (child !== null) container.removeChild(child);
+
+            fakeFetch(mockData)
+              .then(resp => {
+  							let list = document.createElement('ul');
+  								list.classList.add('list_items')
+                paletteIndex = 0;
+
+  							resp.data.forEach(item => {
+  								list.innerHTML += `<li data-key="${item.key}" class="list__item"
+                                        style="background: #${palettes[paletteIndex]}">
+  																		<span class="list_item__primary">${item.name}</span>
+  																	</li>`;
+                  paletteIndex++;
+
+                  if (paletteIndex >= palettes.length) paletteIndex = 0;
+  							})
+
+  							container.append(list)
+              })
+              .then(() => {
+                // Create event listeners
+                let items = container.querySelectorAll('.list__item')
+                items.forEach((item) => {
+                  // Click is for editing
+                  item.addEventListener('click', (e) => {
+                    e.preventDefault();
+
+                    let par = e.target.closest('[data-key]')
+
+                    pubSub.publish('edit_item', {
+                      name: e.target.innerText,
+                      key: par.querySelector('.list_item__primary').innerText
+                    })
+                  })
+                })
+              })
+					})
+					pubSub.publish('fetch_data')
+				})()
+			</script>
+    </div>
+	</div>
+</body>
+</html>

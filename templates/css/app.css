@@ -1,0 +1,95 @@
+
+* {
+  font-size: 1em;
+  font-family: Optima,Segoe,Segoe UI,Candara,Calibri,Arial,sans-serif;
+  line-height: calc(1*1.618);
+}
+body {
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+  background: #f1f1f6;
+}
+.header {
+  background: #3e206d;
+  color: #f1f1f6;
+  height: 64px;
+  padding: 16px;
+}
+.header_nav {
+  width: 48px;
+  height: 48px;
+  font-size: 2em;
+}
+.header_title {
+  position: absolute;
+  left: 48px;
+  font-size: 2em;
+}
+.element_position__bottom {
+  position: absolute;
+  bottom: 25px;
+  right: 25px;
+}
+.dialog_container {
+  position: fixed;
+  bottom: 0px;
+  background: #BFBFBF;
+  display: inline-block;
+  width: 100%;
+  padding: 16px;
+  display: none;
+  margin: auto;
+}
+.dialog_container__active {
+  display: block;
+}
+.dialog_action {
+  
+}
+#list {
+  margin-bottom: 150px;
+}
+.list_items {
+  margin: 0;
+  padding: 0;
+}
+.list__item {
+  list-style: none;
+  margin: 0;
+  padding: 20px;
+  display: flex;
+}
+.list_item__primary {
+  flex-grow: 2;
+}
+.list_item__secondary {
+  
+}
+.list_form {
+  padding: 25px;
+  margin: 0px;
+  border-top: 1px solid #EFEFEF;
+  height: 60px;
+  background: #916dd5;
+  width: 100%;
+}
+.list_form {
+  position: fixed;
+  bottom: 0px;
+}
+.list_form .list_form__field {
+  
+}
+button {
+  outline: none;
+  position: relative;
+  border: none;
+  border-radius: 2px;
+  text-transform: uppercase;
+  height: 36px;
+  font-weight: 500;
+  padding: 0 16px;
+  line-height: 36px;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
+}
