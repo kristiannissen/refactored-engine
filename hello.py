@@ -1,7 +1,16 @@
-from flask import Flask
+import os
+import web
 
-app = Flask(__name__)
+urls = (
+    '/(.*)', 'hello'
+)
 
-@app.route('/')
-def hello_kitty():
-    return 'Hello, Kitty'
+app = web.application(urls, globals())
+
+class hello:
+    def GET(self, name):
+        env = os.getenv('APP_ENV', 'production')
+        return u'Hello '+ name + ' ' + env
+
+if __name__ == '__main__':
+    app.run()
