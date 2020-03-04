@@ -1,20 +1,12 @@
 import os
-import web
+from flask import Flask, render_template
 
-urls = (
-    '/', 'hello'
-)
+app = Flask(__name__)
 
-app = web.application(urls, globals())
+@app.route('/')
+def hello():
+    # TODO: create index page
+    return render_template('app.html')
 
-environment = os.getenv('WEBPY_ENV', 'production')
-
-class hello:
-    def GET(self):
-        return u'Hello '+ environment
-
-#if __name__ == '__main__':
-#    if environment is not 'production':
-#        app.debug = True
-
-#    app.run()
+if __name__ == '__main__':
+    app.run(host='127.0.0.1', port=8080, debug=True)
