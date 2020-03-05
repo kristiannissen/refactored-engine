@@ -1,0 +1,51 @@
+<!doctype HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>App Shell</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link href="https://fonts.googleapis.com/css?family=Lato|Playfair+Display&display=swap" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}">
+    <meta name="google-signin-scope" content="profile email">
+    <meta name="google-signin-client_id" content="497535158362-a2b6vsv9lbkf6n5duae0rcs02nd7tcoe.apps.googleusercontent.com">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+  </head>
+  <body>
+    <header>
+      <h1>The Grocery App</h1>
+    </header>
+    <main>
+      <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+      <script>
+        function onSignIn(googleUser) {
+          var profile = googleUser.getBasicProfile();
+          console.log("ID: " + profile.getId());
+          console.log("Email: " + profile.getEmail());
+          console.log("Image URL: " + profile.getImageUrl());
+          // The ID token you need to pass to your backend:
+          var id_token = googleUser.getAuthResponse().id_token;
+          fetch('/signin/', {
+            method: 'POST',
+            headers: {
+              'Authorization': 'Bearer '+ id_token,
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              email: profile.getEmail()
+            })
+          }).then(function(response) {
+            return response.json()
+          }).then(function (obj) {
+            location.replace(obj.loc)
+          }).catch(function(error) {
+            console.log(error)
+          });
+        }
+      </script>
+    </main>
+    <footer></footer>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+  </body>
+</html>
