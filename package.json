@@ -1,0 +1,24 @@
+{
+  "name": "refactored-engine",
+  "version": "1.0.0",
+  "description": "Python/Javascript shopping list app running on Google App Engine",
+  "main": "src/index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clean": "find src/*.js | xargs prettier --write"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github-private:kristiannissen/refactored-engine"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.8.7",
+    "@babel/preset-env": "^7.8.7",
+    "@babel/preset-es2017": "^7.0.0-beta.53"
+  }
+}

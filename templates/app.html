@@ -14,7 +14,12 @@
       <h1>Weekend Beer List</h1>
     </header>
     <main id="mount">
-      Hello Kitty
+      <nav>
+        <ul>
+          <li><a href="#hello-1">Hello 1</a></li>
+          <li><a href="#hello-2">Hello 2</a></li>
+        </ul>
+      </nav>
     </main>
     <footer>
       <form action="" method="post" id="list_form">
@@ -25,34 +30,6 @@
         </label>
       </form>
     </footer>
-    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
-    <script>
-      const userId = localStorage.getItem('_u')
-      let foo = document.querySelector('#list_form')
-      foo.addEventListener('submit', (event) => {
-        event.preventDefault();
-        fetch('/service/'+ userId +'/lists/', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({'list_name': event.target.list_name.value})
-        })
-          .then((response) => response.json)
-          .then((json) => console.log(json))
-      })
-      const mount = document.querySelector('#mount')
-
-      const fetchList = (userId) => {
-        fetch('/service/'+ userId +'/lists/')
-          .then((response) => response.json())
-          .then((data) => console.log(data))
-          .catch((error) => console.log(error))
-      }
-      const renderList = (elm, list) => {
-        
-      }
-      fetchList(userId)
-    </script>
+    <script src="{{ url_for('static', filename='js/main.bundle.js') }}"></script>
   </body>
 </html>
