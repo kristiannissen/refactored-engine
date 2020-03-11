@@ -29,15 +29,17 @@
           fetch('/signin/', {
             method: 'POST',
             headers: {
-              'Authorization': 'Bearer '+ id_token,
+              'Authorization': id_token,
               'Content-Type': 'application/json'
             },
             body: JSON.stringify({
               email: profile.getEmail()
             })
           }).then(function(response) {
+            console.log(response)
             return response.json()
           }).then(function (obj) {
+            localStorage.setItem('_u', obj.user_id)
             location.replace(obj.loc)
           }).catch(function(error) {
             console.log(error)
