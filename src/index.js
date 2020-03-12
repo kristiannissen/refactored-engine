@@ -16,6 +16,9 @@
 (() => {
   const listElm = document.querySelector('app-list')
   listElm.setAttribute('userid', localStorage.getItem('_u') || 0)
+
+  const formElm = document.querySelector('app-form')
+  formElm.setAttribute('userid', localStorage.getItem('_u') || 0)
 })()
 
 import AppTitle from "./webcomponents/AppTitle.js";
@@ -26,3 +29,7 @@ window.customElements.define("app-list", AppList)
 
 import AppError from "./webcomponents/AppError.js"
 window.customElements.define("app-error", AppError)
+
+import AppForm from "./webcomponents/AppForm.js"
+window.customElements.define("app-form", AppForm)
+

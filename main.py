@@ -47,11 +47,17 @@ def service_list(user_id=None):
         data = request.get_json()
         list_create(data['list_name'], user_id)
 
-    user_lists = []
-    lists = user_lists(user_id=user_id)
-    print(lists)
+    user_lists_data = user_lists(user_id=user_id)
+    list_data = []
+    for item in user_lists_data:
+        list_data.append({
+                'name': item['name'],
+                'id': item.key.id,
+                'created_at': item['created_at'],
+                'items': item['items']
+            })
 
-    return jsonify(user_lists=user_lists)
+    return jsonify(user_lists=list_data)
 
 
 if __name__ == '__main__':

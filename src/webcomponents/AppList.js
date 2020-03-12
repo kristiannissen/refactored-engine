@@ -14,7 +14,7 @@ class AppList extends HTMLElement {
     this._list = [];
     this._shadowRoot = this.attachShadow({ mode: "open" });
     this._shadowRoot.appendChild(template.content.cloneNode(true));
-    this.errorEvent = new CustomEvent('app-error')
+    this.errorEvent = new CustomEvent("app-error");
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
@@ -25,22 +25,31 @@ class AppList extends HTMLElement {
 
   connectedCallback() {
     fetch(`/service/${this.userid}/lists/`)
-      .then((response) => {
+      .then(response => {
         if (response.ok) {
-          return response.json()
+          return response.json();
         }
-        this.dispatchEvent(this.errorEvent)
+        this.dispatchEvent(this.errorEvent);
       })
       .then(json => {
         this._list = json.user_lists;
         this.render();
       })
-      .catch((error) => this.dispatchEvent(this.errorEvent))
+      .catch(error => this.dispatchEvent(this.errorEvent));
+
+    this.addEventListener("form-changed", e => console.log(e));
   }
 
   render() {
+    let list = this._shadowRoot.querySelector("ul");
+    list.innerHTML = "";
+
     this._list.forEach((item, indx) => {
-      console.log(item);
+      let liElm = document.createElement("li");
+      liElm.innerHTML = `<div>${item.name}<span>
+          <i class="material-icons">keyboard_arrow_right</i>
+        </span></div>`;
+      list.appendChild(liElm);
     });
   }
 }

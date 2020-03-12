@@ -39,9 +39,9 @@ def user_authenticate(mail=None):
 # Return all lists belonging to the user
 def user_lists(user_id=None):
     query = datastore_client.query(kind='UserList')
-    result = list(query.add_filter('user_id', '=', user_id).fetch())
+    result = query.add_filter('user_id', '=', user_id).fetch()
 
-    return result
+    return list(result)
 
 # Create a new list
 def list_create(name=None, user_id=None):
