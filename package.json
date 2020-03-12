@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "clean": "find src/*.js | xargs prettier --write"
+    "clean": "prettier --write src/**/*.js"
   },
   "repository": {
     "type": "git",

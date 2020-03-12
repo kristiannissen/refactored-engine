@@ -1,4 +1,4 @@
 /**
  * sw.js
  */
-console.log('sw')
+console.log("sw");
