@@ -1,7 +1,7 @@
 /**
  * AppTitle
  */
-const template = document.createElement('template')
+const template = document.createElement("template");
 template.innerHTML = `
 <style>
 :host {
@@ -12,14 +12,14 @@ h1 {
 }
 </style>
 <h1></h1>
-`
+`;
 
 class AppTitle extends HTMLElement {
   constructor() {
     super();
     this._title = "";
-    this._shadowRoot = this.attachShadow({'mode': 'open'})
-    this._shadowRoot.appendChild(template.content.cloneNode(true))
+    this._shadowRoot = this.attachShadow({ mode: "open" });
+    this._shadowRoot.appendChild(template.content.cloneNode(true));
   }
 
   static get observedAttributes() {
@@ -27,8 +27,8 @@ class AppTitle extends HTMLElement {
   }
 
   connectedCallback() {
-    if (this.hasAttribute('title')) {
-      this.title = this.getAttribute('title')
+    if (this.hasAttribute("title")) {
+      this.title = this.getAttribute("title");
     }
   }
 
@@ -36,18 +36,18 @@ class AppTitle extends HTMLElement {
     return this._title;
   }
   set title(t) {
-    this.setAttribute('title', t.trim())
+    this.setAttribute("title", t.trim());
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
     if (oldValue !== newValue) {
-      this._title = newValue
+      this._title = newValue;
       this.render();
     }
   }
 
   render() {
-    this._shadowRoot.querySelector('h1').innerHTML = this.title
+    this._shadowRoot.querySelector("h1").innerHTML = this.title;
   }
 }
 

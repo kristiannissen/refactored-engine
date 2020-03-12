@@ -13,5 +13,16 @@
   bodyElm.classList.toggle(`js-${loc}`);
 })();
 
+(() => {
+  const listElm = document.querySelector('app-list')
+  listElm.setAttribute('userid', localStorage.getItem('_u') || 0)
+})()
+
 import AppTitle from "./webcomponents/AppTitle.js";
 window.customElements.define("app-title", AppTitle);
+
+import AppList from "./webcomponents/AppList.js"
+window.customElements.define("app-list", AppList)
+
+import AppError from "./webcomponents/AppError.js"
+window.customElements.define("app-error", AppError)

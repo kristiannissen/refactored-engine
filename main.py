@@ -3,7 +3,7 @@ from functools import wraps
 
 from flask import Flask, render_template, request, redirect, jsonify
 
-from models import user_authenticate, user_create, user_lists, list_create
+from models import user_authenticate, user_create, user_lists, list_create, list_delete
 
 app = Flask(__name__)
 
@@ -47,9 +47,11 @@ def service_list(user_id=None):
         data = request.get_json()
         list_create(data['list_name'], user_id)
 
+    user_lists = []
     lists = user_lists(user_id=user_id)
     print(lists)
-    return jsonify(user_lists=lists)
+
+    return jsonify(user_lists=user_lists)
 
 
 if __name__ == '__main__':

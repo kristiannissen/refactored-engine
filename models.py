@@ -56,6 +56,10 @@ def list_create(name=None, user_id=None):
 
     return user_list.key
 
+# Delete a specific list
+def list_delete(entity=None):
+    datastore_client.delete(entity.key)
+
 # Model to share lists between users
 def user_list_user(owner_id=None, list_id=None, user_id=None):
     pass
