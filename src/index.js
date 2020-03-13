@@ -27,8 +27,8 @@ window.customElements.define("app-title", AppTitle);
 import AppList from "./webcomponents/AppList.js"
 window.customElements.define("app-list", AppList)
 
-import AppError from "./webcomponents/AppError.js"
-window.customElements.define("app-error", AppError)
+import AppSnackbar from "./webcomponents/AppSnackbar.js"
+window.customElements.define("app-snackbar", AppSnackbar)
 
 import AppForm from "./webcomponents/AppForm.js"
 window.customElements.define("app-form", AppForm)

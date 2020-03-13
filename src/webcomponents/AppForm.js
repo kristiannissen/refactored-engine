@@ -18,6 +18,7 @@ class AppForm extends HTMLElement {
     super(...args);
     this._shadowRoot = this.attachShadow({ mode: "open" });
     this._shadowRoot.appendChild(template.content.cloneNode(true));
+    this._parent = this._shadowRoot.host.parentNode;
   }
 
   attributeChangeCallback(name, oldValue, newValue) {
@@ -43,13 +44,13 @@ class AppForm extends HTMLElement {
       })
         .then(response => response.json())
         .then(json => {
-          // TODO: Notify the AppList about the change
-          this.dispatchEvent(
+          this._parent.dispatchEvent(
             new CustomEvent("field-changed", {
               detail: { name: name },
               composed: true
             })
           );
+          this.setAttribute("name", name);
         });
     });
   }

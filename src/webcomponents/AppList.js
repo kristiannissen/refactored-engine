@@ -20,7 +20,7 @@ class AppList extends HTMLElement {
     this._list = [];
     this._shadowRoot = this.attachShadow({ mode: "open" });
     this._shadowRoot.appendChild(template.content.cloneNode(true));
-    this.addEventListener("field-changed", e => console.log(e));
+    this._parent = this._shadowRoot.host.parentNode;
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
@@ -30,6 +30,14 @@ class AppList extends HTMLElement {
   }
 
   connectedCallback() {
+    this._updateList();
+    this._parent.addEventListener("field-changed", e => {
+      console.log(e);
+      this._updateList();
+    });
+  }
+
+  _updateList() {
     fetch(`/service/${this.userid}/lists/`)
       .then(response => {
         if (response.ok) {
@@ -54,11 +62,6 @@ class AppList extends HTMLElement {
       liElm.addEventListener("click", e => console.log(e));
       list.appendChild(liElm);
     });
-
-    this.dispatchEvent(
-      new CustomEvent("list-changed", { detail: "", composed: true })
-    );
-    console.log("render");
   }
 }
 

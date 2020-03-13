@@ -22,7 +22,16 @@ header {
 main {
   display: flex;
 }
-footer {}
+main app-list {
+  flex: 1;
+}
+
+footer {
+  display: flex;
+}
+footer app-form {
+  flex: 1;
+}
 /* Layout */
 .js-signin main {
   justify-content: center;
