@@ -2,7 +2,13 @@
  * AppList.js
  */
 const template = document.createElement("template");
-template.innerHTML = `<ul></ul>`;
+template.innerHTML = `
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+  <ul></ul>`;
 
 class AppList extends HTMLElement {
   static get observedAttributes() {
@@ -14,7 +20,6 @@ class AppList extends HTMLElement {
     this._list = [];
     this._shadowRoot = this.attachShadow({ mode: "open" });
     this._shadowRoot.appendChild(template.content.cloneNode(true));
-    this.errorEvent = new CustomEvent("app-error");
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
@@ -29,15 +34,13 @@ class AppList extends HTMLElement {
         if (response.ok) {
           return response.json();
         }
-        this.dispatchEvent(this.errorEvent);
+        console.log(response);
       })
       .then(json => {
         this._list = json.user_lists;
         this.render();
       })
-      .catch(error => this.dispatchEvent(this.errorEvent));
-
-    this.addEventListener("form-changed", e => console.log(e));
+      .catch(error => console.log(error));
   }
 
   render() {
@@ -46,11 +49,15 @@ class AppList extends HTMLElement {
 
     this._list.forEach((item, indx) => {
       let liElm = document.createElement("li");
-      liElm.innerHTML = `<div>${item.name}<span>
-          <i class="material-icons">keyboard_arrow_right</i>
-        </span></div>`;
+      liElm.innerHTML = `<div data-id="${item.id}">${item.name}</div>`;
+      liElm.addEventListener("click", e => console.log(e));
       list.appendChild(liElm);
     });
+
+    this.dispatchEvent(
+      new CustomEvent("list-changed", { detail: "", composed: true })
+    );
+    console.log("render");
   }
 }
 
