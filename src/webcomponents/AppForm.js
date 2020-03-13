@@ -44,6 +44,12 @@ class AppForm extends HTMLElement {
         .then(response => response.json())
         .then(json => {
           // TODO: Notify the AppList about the change
+          this.dispatchEvent(
+            new CustomEvent("field-changed", {
+              detail: { name: name },
+              composed: true
+            })
+          );
         });
     });
   }

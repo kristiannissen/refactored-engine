@@ -20,6 +20,7 @@ class AppList extends HTMLElement {
     this._list = [];
     this._shadowRoot = this.attachShadow({ mode: "open" });
     this._shadowRoot.appendChild(template.content.cloneNode(true));
+    this.addEventListener("field-changed", e => console.log(e));
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
