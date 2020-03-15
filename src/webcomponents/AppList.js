@@ -1,6 +1,8 @@
 /**
  * AppList.js
  */
+import { publish, subscribe } from "./../lib/pubsub.js";
+
 const template = document.createElement("template");
 template.innerHTML = `
   <style>
@@ -31,10 +33,6 @@ class AppList extends HTMLElement {
 
   connectedCallback() {
     this._updateList();
-    this._parent.addEventListener("field-changed", e => {
-      console.log(e);
-      this._updateList();
-    });
   }
 
   _updateList() {
@@ -48,6 +46,10 @@ class AppList extends HTMLElement {
       .then(json => {
         this._list = json.user_lists;
         this.render();
+
+        publish("list-changed", {
+          items: json.user_lists.length
+        });
       })
       .catch(error => console.log(error));
   }

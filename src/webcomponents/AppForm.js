@@ -2,7 +2,7 @@
  * AppForm.js
  */
 const template = document.createElement("template");
-template.innerHTML = `<form>
+template.innerHTML = `<form autocomplete="off">
     <label>Name of List</label>
     <input type="text" name="list_name" value="">
     <button type="submit">Save</button>
@@ -44,12 +44,6 @@ class AppForm extends HTMLElement {
       })
         .then(response => response.json())
         .then(json => {
-          this._parent.dispatchEvent(
-            new CustomEvent("field-changed", {
-              detail: { name: name },
-              composed: true
-            })
-          );
           this.setAttribute("name", name);
         });
     });

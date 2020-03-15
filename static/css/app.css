@@ -15,29 +15,40 @@ h1 {
 }
 /* Grid */
 header {
-  display: flex;
   background: #3e206d;
   color: #f1f1f6;
 }
 main {
-  display: flex;
-}
-main app-list {
-  flex: 1;
-}
 
-footer {
-  display: flex;
 }
-footer app-form {
-  flex: 1;
+footer {
+
 }
 /* Layout */
-.js-signin main {
-  justify-content: center;
-  align-items: center;
+/* Media Queries http://devfacts.com/media-queries-breakpoints-2020/ */
+/* Small devices (landscape phones, 576px and up) */
+@media (max-width: 575.98px) {
+  main {
+    background-color: yellow;
+  }
 }
-.js-signin main div {
+/* Small devices (landscape phones, less than 768px) */
+@media (max-width: 767.98px) {
+  main {
+    background-color: green;
+  }
+}
+/* Medium devices (tablets, less than 992px) */
+@media (max-width: 991.98px) {
+  main {
+    background-color: red;
+  }
+}
+/* Large devices (desktops, less than 1200px) */
+@media (max-width: 1199.98px) {
+  main {
+    background-color: brown;
+  }
 }
 /* External */
 .material-icons {

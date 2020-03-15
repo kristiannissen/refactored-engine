@@ -2,18 +2,10 @@
  * AppError.js
  * TODO: Rename to something more generic
  */
+import { publish, subscribe } from "./../lib/pubsub.js";
+
 const template = document.createElement("template");
 template.innerHTML = `
-  <style>
-  :host {
-    display: block;
-  }
-  .snackbar-container {
-    background-color: #323232;
-    color: #fff;
-    padding: 14px 12px;
-  }
-  </style>
   <div class="snackbar-container">Here</div>`;
 
 class AppSnackbar extends HTMLElement {
@@ -29,9 +21,7 @@ class AppSnackbar extends HTMLElement {
   }
 
   connectedCallback() {
-    this._parent.addEventListener("list-changed", e => {
-      console.log(e.detail);
-    });
+    subscribe("list-changed", payload => console.log("snackbar", payload));
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
