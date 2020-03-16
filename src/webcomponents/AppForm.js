@@ -1,6 +1,8 @@
 /**
  * AppForm.js
  */
+"use strict";
+
 import { subscribe, publish } from "./../lib/pubsub.js";
 
 const template = document.createElement("template");

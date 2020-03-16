@@ -1,6 +1,8 @@
 /**
  * AppTitle
  */
+"use strict";
+
 const template = document.createElement("template");
 template.innerHTML = `
 <style>

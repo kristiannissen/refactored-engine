@@ -41,6 +41,10 @@ def signin():
 def app_index():
     return render_template('app.html')
 
+@app.route('/app/<list_id>/')
+def list_show(list_id=None):
+    return render_template('list.html')
+
 @app.route('/service/<user_id>/lists/', methods=["GET", "POST"])
 def service_list(user_id=None):
     if request.method == 'POST':
@@ -58,6 +62,10 @@ def service_list(user_id=None):
             })
 
     return jsonify(user_lists=list_data)
+
+@app.route('/service/<user_id>/lists/<list_id>/', methods=["GET", "POST"])
+def list_fetch(list_id=None):
+    return 'Hello Kitty'
 
 
 if __name__ == '__main__':

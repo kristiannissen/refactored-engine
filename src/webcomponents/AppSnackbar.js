@@ -2,6 +2,8 @@
  * AppError.js
  * TODO: Rename to something more generic
  */
+"use strict";
+
 import { publish, subscribe } from "./../lib/pubsub.js";
 
 const template = document.createElement("template");

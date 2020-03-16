@@ -56,6 +56,10 @@ def list_create(name=None, user_id=None):
 
     return user_list.key
 
+# Fetch a single list
+def list_get(entity=None):
+    pass
+
 # Delete a specific list
 def list_delete(entity=None):
     datastore_client.delete(entity.key)

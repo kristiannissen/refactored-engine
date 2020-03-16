@@ -1,6 +1,8 @@
 /**
  * AppList.js
  */
+"use strict";
+
 import { publish, subscribe } from "./../lib/pubsub.js";
 
 const template = document.createElement("template");
@@ -46,6 +48,7 @@ class AppList extends HTMLElement {
       })
       .then(json => {
         this._list = json.user_lists;
+        localStorage.setItem("user_lists", JSON.stringify(json.user_lists));
         this.render();
 
         publish("list-fetched", {
@@ -61,8 +64,14 @@ class AppList extends HTMLElement {
 
     this._list.forEach((item, indx) => {
       let liElm = document.createElement("li");
-      liElm.innerHTML = `<div data-id="${item.id}">${item.name}</div>`;
-      liElm.addEventListener("click", e => console.log(e));
+      liElm.innerHTML = `<div data-list-id="${item.id}">
+          ${item.name}
+        </div>`;
+      liElm.addEventListener("click", e => {
+        publish("list-show", {
+          listid: e.target.getAttribute("data-list-id")
+        });
+      });
       list.appendChild(liElm);
     });
   }
