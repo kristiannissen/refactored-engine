@@ -33,6 +33,7 @@ class AppList extends HTMLElement {
 
   connectedCallback() {
     this._updateList();
+    subscribe("item-added", () => this._updateList());
   }
 
   _updateList() {
@@ -47,7 +48,7 @@ class AppList extends HTMLElement {
         this._list = json.user_lists;
         this.render();
 
-        publish("list-changed", {
+        publish("list-fetched", {
           items: json.user_lists.length
         });
       })

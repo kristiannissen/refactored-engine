@@ -25,31 +25,7 @@ footer {
 
 }
 /* Layout */
-/* Media Queries http://devfacts.com/media-queries-breakpoints-2020/ */
-/* Small devices (landscape phones, 576px and up) */
-@media (max-width: 575.98px) {
-  main {
-    background-color: yellow;
-  }
-}
-/* Small devices (landscape phones, less than 768px) */
-@media (max-width: 767.98px) {
-  main {
-    background-color: green;
-  }
-}
-/* Medium devices (tablets, less than 992px) */
-@media (max-width: 991.98px) {
-  main {
-    background-color: red;
-  }
-}
-/* Large devices (desktops, less than 1200px) */
-@media (max-width: 1199.98px) {
-  main {
-    background-color: brown;
-  }
-}
+
 /* External */
 .material-icons {
   font-family: 'Material Icons';

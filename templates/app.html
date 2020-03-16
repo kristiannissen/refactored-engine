@@ -16,11 +16,15 @@
       <app-title title="My Weekend Beer List"></app-title>
     </header>
     <main>
-      <app-list userid=""></app-list>
-      <app-snackbar message="" level=""></app-snackbar>
-      <app-form userid="" name=""></app-form>
+      <div id="mount-app-list">
+        <app-list userid=""></app-list>
+      </div>
+      <div id="mount-app-snackbar">
+        <app-snackbar message=""></app-snackbar>
+      </div>
     </main>
     <footer>
+      <app-form userid="" name=""></app-form>
     </footer>
     <script src="{{ url_for('static', filename='js/main.bundle.js') }}"></script>
   </body>
