@@ -20,12 +20,14 @@ template.innerHTML = `
     height: 100%;
     border: none;
     z-index: 3;
+    margin: 0;
+    padding: 0;
   }
   .dialog-closed {
     
   }
   </style>
-  <dialog>Hello Kitty</dialog>
+  <dialog></dialog>
 `;
 
 class AppDialog extends HTMLElement {
@@ -53,6 +55,8 @@ class AppDialog extends HTMLElement {
       this.toggleOpen();
       this.render();
     });
+
+    subscribe("item-added", payload => console.log(payload));
   }
 
   toggleOpen() {
@@ -68,6 +72,36 @@ class AppDialog extends HTMLElement {
     let listObj = list.find(
       (item, indx) => item.id === this.getAttribute("listid")
     );
+    let items = listObj.items.map((item, indx) => `<li>${indx}</li>`);
+
+    this.diag.innerHTML = `<div>
+      <span>
+        <a href="">Close</a>
+      </span>
+      <h3>${listObj.name}</h3>
+      <ul>${items}</ul>
+      <form autocomplete="off">
+        <div class="f-g">
+          <label>Grocery</label>
+          <input type="text" value="" name="item_name">
+        </div>
+        <div class="f-g">
+          <label>Quantity</label>
+          <input type="number" value="" name="item_quantity">
+        </div>
+        <div class="f-g">
+          <input type="submit" value="Save">
+        </div>
+      </form>
+    </div>`;
+    let foo = this.diag.querySelector("form");
+    foo.addEventListener("submit", e => {
+      e.preventDefault();
+      publish("item-added", {
+        itemname: foo.item_name.value.trim(),
+        quantity: foo.item_quantity.value == "" ? "1" : foo.item_quantity.value
+      });
+    });
   }
 }
 

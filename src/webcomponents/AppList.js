@@ -59,7 +59,7 @@ class AppList extends HTMLElement {
 
   connectedCallback() {
     this._updateList();
-    subscribe("item-added", () => this._updateList());
+    subscribe("list-added", () => this._updateList());
   }
 
   _updateList() {

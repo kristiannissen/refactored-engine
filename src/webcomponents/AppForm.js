@@ -65,6 +65,7 @@ class AppForm extends HTMLElement {
 
     this._shadowRoot.querySelector("form").addEventListener("submit", e => {
       e.preventDefault();
+
       let name = e.target["list_name"].value.trim();
       if (name !== "") {
         fetch(`/service/${userId}/lists/`, {
@@ -79,7 +80,7 @@ class AppForm extends HTMLElement {
           .then(response => response.json())
           .then(json => {
             this.setAttribute("name", name);
-            publish("item-added", { name: name });
+            publish("list-added", { name: name });
           });
       }
     });
