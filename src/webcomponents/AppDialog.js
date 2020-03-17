@@ -39,7 +39,6 @@ class AppDialog extends HTMLElement {
     super(...args);
     this._shadowRoot = this.attachShadow({ mode: "open" });
     this._shadowRoot.appendChild(template.content.cloneNode(true));
-    this.userLists = localStorage.getItem("user_lists") || "[]";
     this.diag = this._shadowRoot.querySelector("dialog");
   }
 
@@ -68,7 +67,8 @@ class AppDialog extends HTMLElement {
   }
 
   render() {
-    let list = JSON.parse(this.userLists);
+    let userLists = localStorage.getItem("user_lists") || "[]";
+    let list = JSON.parse(userLists);
     let listObj = list.find(
       (item, indx) => item.id === this.getAttribute("listid")
     );
@@ -94,6 +94,7 @@ class AppDialog extends HTMLElement {
         </div>
       </form>
     </div>`;
+
     let foo = this.diag.querySelector("form");
     foo.addEventListener("submit", e => {
       e.preventDefault();
@@ -101,6 +102,12 @@ class AppDialog extends HTMLElement {
         itemname: foo.item_name.value.trim(),
         quantity: foo.item_quantity.value == "" ? "1" : foo.item_quantity.value
       });
+    });
+
+    let closeButton = this.diag.querySelector("span > a");
+    closeButton.addEventListener("click", e => {
+      e.preventDefault();
+      this.toggleOpen();
     });
   }
 }
