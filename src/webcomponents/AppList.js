@@ -11,6 +11,30 @@ template.innerHTML = `
     :host {
       display: block;
     }
+    ul:not(.browser-default) {
+      padding-left: 0;
+      list-style-type: none;
+    }
+    ul:not(.browser-default)>li {
+      list-style-type: none;
+    }
+    ul {
+      margin: .5rem 0 1rem 0;
+      overflow: hidden;
+      position: relative;
+    }
+    li {
+      line-height: 1.5rem;
+      padding: 10px 20px;
+      margin: 0;
+      display: flex;
+    }
+    li span {
+      flex: 1;
+    }
+    span.primary {
+      flex: 2;
+    }
   </style>
   <ul></ul>`;
 
@@ -65,11 +89,16 @@ class AppList extends HTMLElement {
     this._list.forEach((item, indx) => {
       let liElm = document.createElement("li");
       liElm.innerHTML = `<div data-list-id="${item.id}">
-          ${item.name}
+          <span class="primary">${item.name}</span>
+          <span class="secondary">
+            <span class="badge">${item.items.length}</span>
+          </span>
         </div>`;
       liElm.addEventListener("click", e => {
         publish("list-show", {
-          listid: e.target.getAttribute("data-list-id")
+          listid: e.target
+            .closest("[data-list-id]")
+            .getAttribute("data-list-id")
         });
       });
       list.appendChild(liElm);

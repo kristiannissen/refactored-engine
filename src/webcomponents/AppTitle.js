@@ -11,6 +11,7 @@ template.innerHTML = `
 }
 h1 {
   padding: 0 5px;
+  color: #fff;
 }
 </style>
 <h1></h1>

@@ -13,69 +13,33 @@ template.innerHTML = `
   }
   form {
     padding: 0 12px;
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    align-content: center;
   }
-  label {
-    bottom: 0;
-    color: rgba(0,0,0,.26);
-    font-size: 16px;
-    left: 0;
-    right: 0;
-    pointer-events: none;
-    position: absolute;
-    display: block;
-    top: 24px;
-    width: 100%;
-    overflow: hidden;
-    white-space: nowrap;
-    text-align: left;
+  .f-g {
+    flex: 1;
+    align-self: center;
+  }
+  .f-g:first-child {
+    flex: 2;
   }
   input {
-    border: none;
-    border-bottom: 1px solid rgba(0,0,0,.12);
-    display: block;
-    font-size: 16px;
-    font-family: "Helvetica","Arial",sans-serif;
-    margin: 0;
-    padding: 4px 0;
-    width: 100%;
-    background: 0 0;
-    text-align: left;
-    color: inherit;
     outline: none;
   }
   button {
-    background: 0 0;
-    border: none;
-    border-radius: 2px;
-    color: #000;
-    position: relative;
-    height: 36px;
-    margin: 0;
-    min-width: 64px;
-    padding: 0 16px;
-    display: inline-block;
-    font-family: "Roboto","Helvetica","Arial",sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0;
-    overflow: hidden;
-    will-change: box-shadow;
-    transition: box-shadow .2s cubic-bezier(.4,0,1,1),background-color .2s cubic-bezier(.4,0,.2,1),color .2s cubic-bezier(.4,0,.2,1);
-    outline: none;
-    cursor: pointer;
-    text-decoration: none;
-    text-align: center;
-    line-height: 36px;
-    vertical-align: middle;
-    background: rgba(158,158,158,.2);
-    box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
+  
   }
   </style>
   <form autocomplete="off">
-    <label>Name of List</label>
-    <input type="text" name="list_name" value="">
-    <button type="submit">Save</button>
+    <div class="f-g">
+      <label>Name of List</label>
+      <input type="text" name="list_name" value="">
+    </div>
+    <div class="f-g">
+      <button type="submit">Save</button>
+    </div>
   </form>
   `;
 
@@ -120,8 +84,6 @@ class AppForm extends HTMLElement {
       }
     });
   }
-
-  render() {}
 }
 
 export default AppForm;

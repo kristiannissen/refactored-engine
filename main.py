@@ -56,7 +56,7 @@ def service_list(user_id=None):
     for item in user_lists_data:
         list_data.append({
                 'name': item['name'],
-                'id': item.key.id,
+                'id': str(item.key.id),
                 'created_at': item['created_at'],
                 'items': item['items']
             })
