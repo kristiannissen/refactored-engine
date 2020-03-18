@@ -20,7 +20,13 @@ class TestSum(unittest.TestCase):
         self.assertIsNotNone(user, 'Test user get found')
 
     def test_user_delete(self):
-        pass
+        test_user = user_create(email='kristian.nissenrew@gmail.com')
+        self.assertIsNotNone(test_user.id, 'Test user create')
+
+        user_delete(key=test_user.id)
+
+        test_user = user_get(email='kristian.nissenrew@gmail.com')
+        self.assertIsNone(test_user, 'Test user delete')
         
 
 if __name__ == '__main__':
