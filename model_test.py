@@ -1,6 +1,6 @@
 import unittest
 
-from models import user_create, user_delete, user_get, user_authenticate, clear_all_users, clear_all_user_lists
+from models import *
 
 class TestModels(unittest.TestCase):
 
@@ -9,7 +9,7 @@ class TestModels(unittest.TestCase):
         clear_all_user_lists()
 
     def tearDown(self):
-        print('teardown')
+        pass
 
     def test_user_create(self):
         user = user_create(email='example@gmail.com')
@@ -43,6 +43,27 @@ class TestModels(unittest.TestCase):
     def test_user_authenticate_not_found(self):
         user = user_authenticate(email='example@gmail.com')
         self.assertIsNone(user, 'Test user authenticate not found')
+
+    def test_user_list(self):
+        user = user_create(email='example@gmail.com')
+        user_list = user_lists(user_id=user.id)
+        self.assertIsNone(user_list, 'Test user list')
+
+    def test_user_list_create(self):
+        user = user_create(email='example@gmail.com')
+        user_list = list_create(list_name='Hello Kitty', user_id=user.id)
+        self.assertIsNotNone(user_list, 'Test create user list')
+
+    def test_list_update(self):
+        user = user_create(email='example@gmail.com')
+
+        user_list = list_create(list_name='Hello Kitty', user_id=user.id)
+        first_list = user_lists(user_id=user.id)
+
+        user_list = list_update(list_id=user_list.id, list_data={'items': [{'name': 'Hello Kitty'}]})
+        second_list = user_lists(user_id=user.id)
+
+        self.assertNotEqual(first_list, second_list, 'Test list update')
         
 
 if __name__ == '__main__':

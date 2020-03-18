@@ -55,15 +55,18 @@ def user_authenticate(email=None):
 # Return all lists belonging to the user
 def user_lists(user_id=None):
     query = datastore_client.query(kind='UserList')
-    result = query.add_filter('user_id', '=', user_id).fetch()
+    result = list(query.add_filter('user_id', '=', user_id).fetch())
 
-    return list(result)
+    if len(result) == 0:
+        return None
+
+    return result
 
 # Create a new list
-def list_create(name=None, user_id=None):
+def list_create(list_name=None, user_id=None):
     list_key = datastore_client.key('UserList')
     user_list = datastore.Entity(key=list_key)
-    user_list['name'] = name
+    user_list['name'] = list_name
     user_list['user_id'] = user_id
     user_list['created_at'] = datetime.now()
     user_list['items'] = []
@@ -73,13 +76,14 @@ def list_create(name=None, user_id=None):
     return user_list.key
 
 # Update list
-def list_update(key=None, data=None):
-    list_key = datastore_client.key('UserList', key)
-    user_list = datastore.Key(key=list_key)
+def list_update(list_id=None, list_data=None):
+    list_key = datastore_client.key('UserList', list_id)
+    user_list = datastore_client.get(list_key)
 
-    print(user_list)
+    user_list.update(list_data)
+    datastore_client.put(user_list)
 
-    return key
+    return user_list.key
 
 # Fetch a single list
 def list_get(entity=None):
@@ -93,6 +97,7 @@ def list_delete(entity=None):
 def user_list_user(owner_id=None, list_id=None, user_id=None):
     pass
 
+# For migrations only
 def clear_all_users():
     query = datastore_client.query(kind='User')
     query.keys_only()
