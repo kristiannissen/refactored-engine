@@ -27,3 +27,10 @@ window.customElements.define("app-form", AppForm)
 import AppDialog from "./webcomponents/AppDialog.js"
 window.customElements.define("app-dialog", AppDialog)
 
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js', {
+      scope: '/app/'
+    }).then(reg => console.log(reg))
+  })
+}

@@ -74,6 +74,7 @@ class AppDialog extends HTMLElement {
       userLists.slice(indx, newList);
       localStorage.setItem("user_lists", JSON.stringify(userLists));
       this.render();
+      this.pushChanges();
     });
 
     subscribe("item-removed", payload => {
@@ -85,7 +86,23 @@ class AppDialog extends HTMLElement {
       userLists[indx].items = newList.items;
       localStorage.setItem("user_lists", JSON.stringify(userLists));
       this.render();
+      this.pushChanges();
     });
+  }
+
+  pushChanges() {
+    let listObj = this.getListObject();
+    fetch(`/service/lists/${listObj.id}/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        items: listObj.items
+      })
+    })
+      .then(response => response.json())
+      .then(json => console.log(json));
   }
 
   toggleOpen() {

@@ -1,9 +1,9 @@
 import os
 from functools import wraps
 
-from flask import Flask, render_template, request, redirect, jsonify
+from flask import Flask, render_template, request, redirect, jsonify, current_app
 
-from models import user_authenticate, user_create, user_lists, list_create, list_delete
+from models import user_authenticate, user_create, user_lists, list_create, list_delete, list_update
 
 app = Flask(__name__)
 
@@ -30,7 +30,8 @@ def signin():
 
         if user == None:
             # If the user/email doesn't exist, create it
-            user = user_create(mail=data['email'])
+            user_create(mail=data['email'])
+            user = user_authenticate(mail=data['email'])
 
         return jsonify(loc='/app/', user_id=user.id)
 
@@ -41,12 +42,14 @@ def signin():
 def app_index():
     return render_template('app.html')
 
-@app.route('/app/<list_id>/')
-def list_show(list_id=None):
-    return render_template('list.html')
+# Service worker
+@app.route('/sw.js')
+def service_worker():
+    return current_app.send_static_file('js/sw.js')
+
 
 @app.route('/service/<user_id>/lists/', methods=["GET", "POST"])
-def service_list(user_id=None):
+def service_list_create(user_id=None):
     if request.method == 'POST':
         data = request.get_json()
         list_create(data['list_name'], user_id)
@@ -63,10 +66,13 @@ def service_list(user_id=None):
 
     return jsonify(user_lists=list_data)
 
-@app.route('/service/<user_id>/lists/<list_id>/', methods=["GET", "POST"])
-def list_fetch(list_id=None):
-    return 'Hello Kitty'
-
+@app.route('/service/lists/<list_id>/', methods=["POST"])
+def service_list_update(list_id=None):
+    if request.method == 'POST':
+        json_data = request.get_json()
+        list_key = list_update(key=list_id, data=json_data)
+        
+    return jsonify(message='Working')
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=8080, debug=True)
