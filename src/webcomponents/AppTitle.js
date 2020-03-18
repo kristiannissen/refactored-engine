@@ -9,10 +9,6 @@ template.innerHTML = `
 :host {
   display: block;
 }
-h1 {
-  padding: 0 5px;
-  color: #fff;
-}
 </style>
 <h1></h1>
 `;
@@ -33,6 +29,7 @@ class AppTitle extends HTMLElement {
     if (this.hasAttribute("title")) {
       this.title = this.getAttribute("title");
     }
+    this.render();
   }
 
   get title() {

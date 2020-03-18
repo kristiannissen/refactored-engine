@@ -4,6 +4,7 @@
 "use strict";
 
 import { subscribe, publish } from "./../lib/pubsub.js";
+import AppTitle from "./AppTitle.js";
 
 const template = document.createElement("template");
 template.innerHTML = `
@@ -22,6 +23,12 @@ template.innerHTML = `
     z-index: 3;
     margin: 0;
     padding: 0;
+  }
+  .d-c {
+  }
+  .d-c span {
+    float: right;
+    margin: 0 5px 0;
   }
   .dialog-closed {
     
@@ -55,7 +62,30 @@ class AppDialog extends HTMLElement {
       this.render();
     });
 
-    subscribe("item-added", payload => console.log(payload));
+    subscribe("item-added", payload => {
+      let userLists = localStorage.getItem("user_lists") || "[]";
+      userLists = JSON.parse(userLists);
+      let indx = userLists.findIndex(l => l.id === this.getAttribute("listid"));
+      let newList = userLists[indx];
+      newList.items.push({
+        itemname: payload.itemname,
+        quantity: payload.quantity
+      });
+      userLists.slice(indx, newList);
+      localStorage.setItem("user_lists", JSON.stringify(userLists));
+      this.render();
+    });
+
+    subscribe("item-removed", payload => {
+      let userLists = localStorage.getItem("user_lists") || "[]";
+      userLists = JSON.parse(userLists);
+      let indx = userLists.findIndex(l => l.id === this.getAttribute("listid"));
+      let newList = userLists[indx];
+      newList.items.splice(parseInt(payload.indx), 1);
+      userLists[indx].items = newList.items;
+      localStorage.setItem("user_lists", JSON.stringify(userLists));
+      this.render();
+    });
   }
 
   toggleOpen() {
@@ -66,19 +96,28 @@ class AppDialog extends HTMLElement {
     }
   }
 
-  render() {
+  getListObject() {
     let userLists = localStorage.getItem("user_lists") || "[]";
     let list = JSON.parse(userLists);
     let listObj = list.find(
       (item, indx) => item.id === this.getAttribute("listid")
     );
-    let items = listObj.items.map((item, indx) => `<li>${indx}</li>`);
+    return listObj;
+  }
 
-    this.diag.innerHTML = `<div>
+  render() {
+    let userLists = localStorage.getItem("user_lists") || "[]";
+    let list = JSON.parse(userLists);
+    let listObj = this.getListObject();
+    let items = listObj.items.map(
+      (item, indx) => `<li data-index="${indx}">${item.itemname}</li>`
+    );
+
+    this.diag.innerHTML = `<div class="d-c">
       <span>
         <a href="">Close</a>
       </span>
-      <h3>${listObj.name}</h3>
+      <app-title title="${listObj.name}"></app-title>
       <ul>${items}</ul>
       <form autocomplete="off">
         <div class="f-g">
@@ -108,6 +147,17 @@ class AppDialog extends HTMLElement {
     closeButton.addEventListener("click", e => {
       e.preventDefault();
       this.toggleOpen();
+    });
+
+    let elms = this._shadowRoot.querySelectorAll("[data-index]");
+
+    elms.forEach((elm, indx) => {
+      elm.addEventListener("click", e => {
+        e.preventDefault();
+        publish("item-removed", {
+          indx: e.target.getAttribute("data-index")
+        });
+      });
     });
   }
 }
