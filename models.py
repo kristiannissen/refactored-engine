@@ -38,17 +38,19 @@ def user_delete(key=None):
     user_key = datastore_client.key('User', key)
     return datastore_client.delete(user_key)
 
-# TODO: add datetime for last visit
-def user_update(email=None):
-    pass
-
-# FIXME: Should return user Entity or None
-# TODO: if the user exists, update last_visit
-def user_authenticate(mail=None):
+def user_authenticate(email=None):
     query = datastore_client.query(kind='User')
-    result = query.add_filter('email', '=', mail).fetch(1)
+    result = list(query.add_filter('email', '=', email).fetch(1))
 
-    return list(result)
+    if len(result) == 0:
+        return None
+
+    user = result[0]
+    user.update({
+        'last_visit': datetime.now()
+    })
+    datastore_client.put(user)
+    return user
 
 # Return all lists belonging to the user
 def user_lists(user_id=None):
@@ -91,3 +93,20 @@ def list_delete(entity=None):
 def user_list_user(owner_id=None, list_id=None, user_id=None):
     pass
 
+def clear_all_users():
+    query = datastore_client.query(kind='User')
+    query.keys_only()
+    result = list(query.fetch())
+
+    if len(result) > 0:
+        for item in result:
+            list_delete(item)
+
+def clear_all_user_lists():
+    query = datastore_client.query(kind='UserList')
+    query.keys_only()
+    result = list(query.fetch())
+
+    if len(result) > 0:
+        for item in result:
+            list_delete(item)
