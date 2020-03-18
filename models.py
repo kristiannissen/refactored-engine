@@ -85,17 +85,23 @@ def list_update(list_id=None, list_data=None):
 
     return user_list.key
 
-# Fetch a single list
-def list_get(entity=None):
-    pass
-
 # Delete a specific list
 def list_delete(entity=None):
     datastore_client.delete(entity.key)
 
 # Model to share lists between users
-def user_list_user(owner_id=None, list_id=None, user_id=None):
-    pass
+def user_list_user_create(first_user_id=None, second_user_id=None, list_id=None):
+    list_key = datastore_client.key('UserListUser')
+    user_list_user = datastore.Entry(key=list_key)
+    user_list_user.update({
+        'first_user_id': first_user_id,
+        'second_user_id': second_user_id,
+        'list_id': list_id,
+        'created_at': datetime.now()
+    })
+    datastore_client.put(user_list_user)
+    return user_list_user.key
+    
 
 # For migrations only
 def clear_all_users():
