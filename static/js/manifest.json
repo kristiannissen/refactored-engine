@@ -1,6 +1,8 @@
 {
-  "name": "Grocery APp",
+  "name": "Grocery APP",
   "short_name": "Groceries",
+  "orientation": "portrait-primary",
+  "display": "fullscreen",
   "icons": [
     {
       "src": "/static/android-chrome-192x192.png",
