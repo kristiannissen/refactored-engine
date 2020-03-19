@@ -2,6 +2,7 @@ import unittest
 
 from models import *
 
+
 class TestModels(unittest.TestCase):
 
     def setUp(self):
@@ -60,11 +61,12 @@ class TestModels(unittest.TestCase):
         user_list = list_create(list_name='Hello Kitty', user_id=user.id)
         first_list = user_lists(user_id=user.id)
 
-        user_list = list_update(list_id=user_list.id, list_data={'items': [{'name': 'Hello Kitty'}]})
+        user_list = list_update(list_id=user_list.id,
+                                list_data={'items': [{'name': 'Hello Kitty'}]})
         second_list = user_lists(user_id=user.id)
 
         self.assertNotEqual(first_list, second_list, 'Test list update')
-        
+
 
 if __name__ == '__main__':
     unittest.main()
