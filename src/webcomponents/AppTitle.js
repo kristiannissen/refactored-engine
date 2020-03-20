@@ -9,6 +9,25 @@ template.innerHTML = `
 :host {
   display: block;
 }
+/* Small devices (landscape phones, 576px and up) */
+@media (max-width: 575.98px) {
+  h1 {
+    font-size: 1.25rem;
+    text-align: center;
+  }
+}
+/* Small devices (landscape phones, less than 768px) */
+@media (max-width: 767.98px) {
+
+}
+/* Medium devices (tablets, less than 992px) */
+@media (max-width: 991.98px) {
+
+}
+/* Large devices (desktops, less than 1200px) */
+@media (max-width: 1199.98px) {
+  
+}
 </style>
 <h1></h1>
 `;
@@ -32,17 +51,9 @@ class AppTitle extends HTMLElement {
     this.render();
   }
 
-  get title() {
-    return this._title;
-  }
-  set title(t) {
-    this.setAttribute("title", t.trim());
-  }
-
   attributeChangedCallback(name, oldValue, newValue) {
     if (oldValue !== newValue) {
       this._title = newValue;
-      this.render();
     }
   }
 

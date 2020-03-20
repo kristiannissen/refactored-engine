@@ -48,7 +48,7 @@ def service_worker():
     return current_app.send_static_file('js/sw.js')
 
 
-@app.route('/service/<user_id>/lists/', methods=["GET", "POST"])
+@app.route('/app/service/<user_id>/lists/', methods=["GET", "POST"])
 def service_list_create(user_id=None):
     if request.method == 'POST':
         data = request.get_json()
@@ -66,7 +66,7 @@ def service_list_create(user_id=None):
 
     return jsonify(user_lists=list_data)
 
-@app.route('/service/lists/<list_id>/', methods=["POST"])
+@app.route('/app/service/lists/<list_id>/', methods=["POST"])
 def service_list_update(list_id=None):
     if request.method == 'POST':
         json_data = request.get_json()

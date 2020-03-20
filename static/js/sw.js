@@ -3,8 +3,11 @@
  */
 var CACHE_NAME = 'cache-0.0.1'
 var assets = [
-  '/static/css/app.css',
-  '/static/js/main.bundle.js'
+  '/static/css/app-shell.css',
+  '/static/js/main.bundle.js',
+  '/app/',
+  '/app/list/',
+  '/app/share/'
 ]
 // Assets
 self.addEventListener('install', function(event) {

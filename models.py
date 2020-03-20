@@ -7,8 +7,7 @@ env = os.getenv('APP_ENV', 'production')
 
 # For development purposes
 if env is not 'production':
-    os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = '/Users/kn/Documents/'+
-    'private/refactored-engine/refactored-engine-9a76290b675f.json'
+    os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = '/Users/kn/Documents/private/refactored-engine/refactored-engine-9a76290b675f.json'
 
 datastore_client = datastore.Client()
 

@@ -63,7 +63,7 @@ class AppList extends HTMLElement {
   }
 
   _updateList() {
-    fetch(`/service/${this.userid}/lists/`)
+    fetch(`/app/service/${this.userid}/lists/`)
       .then(response => {
         if (response.ok) {
           return response.json();

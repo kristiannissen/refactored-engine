@@ -7,7 +7,7 @@
     "lib": "lib"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest src/tests/",
     "clean": "prettier --write src/**/*.js"
   },
   "repository": {
@@ -19,6 +19,9 @@
   "devDependencies": {
     "@babel/core": "^7.8.7",
     "@babel/preset-env": "^7.8.7",
-    "@babel/preset-es2017": "^7.0.0-beta.53"
+    "@babel/preset-es2017": "^7.0.0-beta.53",
+    "babel-jest": "^25.1.0",
+    "babel-preset-env": "^1.7.0",
+    "jest": "^25.1.0"
   }
 }
