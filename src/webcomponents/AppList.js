@@ -8,35 +8,34 @@ import { publish, subscribe } from "./../lib/pubsub.js";
 const template = document.createElement("template");
 template.innerHTML = `
   <style>
-    :host {
-      display: block;
+    #app-list {
     }
-    ul:not(.browser-default) {
-      padding-left: 0;
-      list-style-type: none;
-    }
-    ul:not(.browser-default)>li {
-      list-style-type: none;
+    .badge {
+      margin-top: calc(.75rem - 11px);
+      font-weight: 300;
+      font-size: 0.8rem;
+      color: #fff;
+      background-color: #26a69a;
+      border-radius: 2px;
+      min-width: 3rem;
+      padding: 0 6px;
+      margin-left: 14px;
+      text-align: center;
+      line-height: 22px;
+      height: 22px;
+      float: right;
+      box-sizing: border-box;
     }
     ul {
-      margin: .5rem 0 1rem 0;
-      overflow: hidden;
-      position: relative;
+      list-style-type: none;
+      margin: 0px;
+      padding: 0px;
     }
     li {
-      line-height: 1.5rem;
-      padding: 10px 20px;
-      margin: 0;
-      display: flex;
-    }
-    li span {
-      flex: 1;
-    }
-    span.primary {
-      flex: 2;
+      padding: 10px;
     }
   </style>
-  <ul></ul>`;
+  <div id="app-list"><ul></ul></div>`;
 
 class AppList extends HTMLElement {
   static get observedAttributes() {

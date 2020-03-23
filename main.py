@@ -26,12 +26,12 @@ def signin():
         if not 'email' in data:
             return jsonify(message='No email provided'), 401
 
-        user = user_authenticate(mail=data['email'])
+        user = user_authenticate(email=data['email'])
 
         if user == None:
             # If the user/email doesn't exist, create it
-            user_create(mail=data['email'])
-            user = user_authenticate(mail=data['email'])
+            user_create(email=data['email'])
+            user = user_authenticate(email=data['email'])
 
         return jsonify(loc='/app/', user_id=user.id)
 
@@ -40,6 +40,14 @@ def signin():
 
 @app.route('/app/')
 def app_index():
+    return render_template('app.html')
+
+@app.route('/app/list/')
+def app_list():
+    return render_template('app.html')
+
+@app.route('/app/share/')
+def app_share():
     return render_template('app.html')
 
 # Service worker
@@ -56,13 +64,15 @@ def service_list_create(user_id=None):
 
     user_lists_data = user_lists(user_id=user_id)
     list_data = []
-    for item in user_lists_data:
-        list_data.append({
-                'name': item['name'],
-                'id': str(item.key.id),
-                'created_at': item['created_at'],
-                'items': item['items']
-            })
+
+    if user_lists_data is not None:
+        for item in user_lists_data:
+            list_data.append({
+                    'name': item['name'],
+                    'id': str(item.key.id),
+                    'created_at': item['created_at'],
+                    'items': item['items']
+                })
 
     return jsonify(user_lists=list_data)
 

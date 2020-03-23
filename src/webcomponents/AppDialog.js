@@ -92,7 +92,7 @@ class AppDialog extends HTMLElement {
 
   pushChanges() {
     let listObj = this.getListObject();
-    fetch(`/service/lists/${listObj.id}/`, {
+    fetch(`/app/service/lists/${listObj.id}/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"

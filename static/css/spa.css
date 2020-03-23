@@ -1,32 +1,23 @@
 html {
   scroll-behavior: smooth;
 }
-*, *:before, *:after {
-}
 body {
+  margin: 0;
   color: #222;
   font-family: 'Lato', sans-serif;
   font-size: 1.125rem;
   line-height: 1.7;
+  padding: 0;
 }
 /* Grid */
-header, main, footer {
-}
 header {
   
 }
 main {
 
 }
-app-title,
-app-list,
-app-snackbar,
-app-dialog,
-app-form {
-}
 footer {
+  padding: 10px 5px;
   position: fixed;
   bottom: 0;
-  padding: 10px 0;
-  width: 100%;
 }

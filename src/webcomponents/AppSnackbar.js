@@ -62,29 +62,22 @@ class AppSnackbar extends HTMLElement {
     this._shadowRoot = this.attachShadow({ mode: "open" });
     this._shadowRoot.appendChild(template.content.cloneNode(true));
     this.elm = this._shadowRoot.getElementById("snackbar-container");
-    this.snackbarElm = this._shadowRoot.getElementById('snackbar')
+    this.snackbarElm = this._shadowRoot.getElementById("snackbar");
   }
 
-  connectedCallback() {
-    subscribe("list-changed", payload =>
-      this.setAttribute("message", "Hello Pussy")
-    );
-  }
+  connectedCallback() {}
 
   attributeChangedCallback(name, oldValue, newValue) {
     if (newValue !== oldValue) {
       this[name] = newValue;
-      this.snackbarElm.innerHTML = `<span>${newValue}</span>`
-      setTimeout(() =>
-        this.toggleDisplay(), 2000)
+      this.snackbarElm.innerHTML = `<span>${newValue}</span>`;
+      setTimeout(() => this.toggleDisplay(), 500);
     }
   }
 
   toggleDisplay() {
-    if (this.elm.style.display === 'block')
-      this.elm.style.display = 'none'
-    else
-      this.elm.style.display = 'block'
+    if (this.elm.style.display === "block") this.elm.style.display = "none";
+    else this.elm.style.display = "block";
   }
 }
 
