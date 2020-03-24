@@ -10,9 +10,11 @@ template.innerHTML = `
   <style>
   .f-g {
     flex-grow: 1;
+    text-align: center;
   }
   form {
     display: flex;
+    align-items: baseline;
   }
   input {
     background-color: transparent;
