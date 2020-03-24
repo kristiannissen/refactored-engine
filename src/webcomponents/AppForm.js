@@ -35,9 +35,11 @@ template.innerHTML = `
   }
   input:focus + label {
     color: #26a69a;
+    top: -.25rem;
   }
   label {
-    left: .75rem;
+    left: 0;
+    top: 1rem;
     color: #9e9e9e;
     position: absolute;
     font-size: 1rem;
