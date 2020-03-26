@@ -6,8 +6,9 @@
 const template = document.createElement("template");
 template.innerHTML = `
 <style>
-:host {
-  display: block;
+h1 {
+  color: #fff;
+  margin: 0;
 }
 /* Small devices (landscape phones, 576px and up) */
 @media (max-width: 575.98px) {

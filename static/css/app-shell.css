@@ -20,6 +20,9 @@ header, main, footer {
 header {
   height: 10%;
   background-color: #481380;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 main {
   height: 75%;

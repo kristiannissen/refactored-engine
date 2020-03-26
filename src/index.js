@@ -33,6 +33,20 @@ import {storeItem, fetchItem} from "./lib/storage.js"
 import {publish, subscribe} from "./lib/pubsub.js"
 
 document.addEventListener('DOMContentLoaded', e => {
+  // Create subscribers
+  subscribe('app-shell-ready', payload => {
+    let headerMount = document.querySelector('header')
+    headerMount.innerHTML = `<app-title title="Hello Champ"/>`
+  })
+
+  subscribe('app-shell-ready', payload => {
+    let mainMount = document.querySelector('main'),
+        appList = document.createElement('app-list');
+
+    appList.setAttribute('userid', payload['_u'])
+
+    mainMount.append(appList)
+  })
 
   let _u = fetchItem('_u').then(obj => publish('app-shell-ready', {'_u': obj}))
 })
