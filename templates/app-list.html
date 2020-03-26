@@ -12,10 +12,21 @@
   </head>
   <body>
     <header>
+      <app-title title="Super List"></app-title>
     </header>
     <main>
+      <div id="mount-app-list">
+        <app-list userid=""></app-list>
+      </div>
+      <div id="mount-app-snackbar">
+        <app-snackbar message="I am a snackbar"></app-snackbar>
+      </div>
+      <div id="mount-app-dialog">
+        <app-dialog listid=""></app-dialog>
+      </div>
     </main>
     <footer>
+      <app-form userid="" name=""></app-form>
     </footer>
     <script src="{{ url_for('static', filename='js/main.bundle.js') }}"></script>
   </body>

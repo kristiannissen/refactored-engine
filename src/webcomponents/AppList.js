@@ -88,17 +88,20 @@ class AppList extends HTMLElement {
     this._list.forEach((item, indx) => {
       let liElm = document.createElement("li");
       liElm.innerHTML = `<div data-list-id="${item.id}">
-          <span class="primary">${item.name}</span>
+          <span class="primary">
+            ${item.name}
+          </span>
           <span class="secondary">
             <span class="badge">${item.items.length}</span>
           </span>
         </div>`;
       liElm.addEventListener("click", e => {
-        publish("list-show", {
+        /*publish("list-show", {
           listid: e.target
             .closest("[data-list-id]")
             .getAttribute("data-list-id")
-        });
+        });*/
+        history.pushState({ id: 1 }, null, "/app/list/");
       });
       list.appendChild(liElm);
     });

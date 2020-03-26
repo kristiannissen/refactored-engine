@@ -44,7 +44,7 @@ def app_index():
 
 @app.route('/app/list/')
 def app_list():
-    return render_template('app.html')
+    return render_template('app-list.html')
 
 @app.route('/app/share/')
 def app_share():
@@ -81,7 +81,7 @@ def service_list_update(list_id=None):
     if request.method == 'POST':
         json_data = request.get_json()
         list_key = list_update(key=list_id, data=json_data)
-        
+
     return jsonify(message='Working')
 
 if __name__ == '__main__':
