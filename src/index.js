@@ -17,45 +17,64 @@
 import AppTitle from "./webcomponents/AppTitle.js";
 window.customElements.define("app-title", AppTitle);
 
-import AppList from "./webcomponents/AppList.js"
-window.customElements.define("app-list", AppList)
+import AppList from "./webcomponents/AppList.js";
+window.customElements.define("app-list", AppList);
 
-import AppSnackbar from "./webcomponents/AppSnackbar.js"
-window.customElements.define("app-snackbar", AppSnackbar)
+import AppSnackbar from "./webcomponents/AppSnackbar.js";
+window.customElements.define("app-snackbar", AppSnackbar);
 
-import AppForm from "./webcomponents/AppForm.js"
-window.customElements.define("app-form", AppForm)
+import AppForm from "./webcomponents/AppForm.js";
+window.customElements.define("app-form", AppForm);
 
-import AppDialog from "./webcomponents/AppDialog.js"
-window.customElements.define("app-dialog", AppDialog)
+import AppDialog from "./webcomponents/AppDialog.js";
+window.customElements.define("app-dialog", AppDialog);
 
-import {storeItem, fetchItem} from "./lib/storage.js"
-import {publish, subscribe} from "./lib/pubsub.js"
+import { storeItem, fetchItem } from "./lib/storage.js";
+import { publish, subscribe } from "./lib/pubsub.js";
 
-document.addEventListener('DOMContentLoaded', e => {
-  // Create subscribers
-  subscribe('app-shell-ready', payload => {
-    let headerMount = document.querySelector('header')
-    headerMount.innerHTML = `<app-title title="Hello Champ"/>`
-  })
+document.addEventListener("DOMContentLoaded", e => {
+  // Create app title subscriber
+  subscribe("app-shell-ready", payload => {
+    let headerMount = document.querySelector("header");
+    headerMount.innerHTML = `<app-title title="Hello Champ"/>`;
+  });
+  // Create app list subscriber
+  subscribe("app-shell-ready", payload => {
+    let mainMount = document.querySelector("main"),
+      appList = document.createElement("app-list");
 
-  subscribe('app-shell-ready', payload => {
-    let mainMount = document.querySelector('main'),
-        appList = document.createElement('app-list');
+    appList.setAttribute("userid", payload["_u"]);
 
-    appList.setAttribute('userid', payload['_u'])
+    mainMount.append(appList);
+  });
+  // Create app snackbar subscriber
+  subscribe("app-shell-ready", payload => {
+    let mainMount = document.querySelector("main"),
+      appSnackbar = document.createElement("app-snackbar");
 
-    mainMount.append(appList)
-  })
+    appSnackbar.setAttribute("message", "Hello Govnr!");
 
-  let _u = fetchItem('_u').then(obj => publish('app-shell-ready', {'_u': obj}))
-})
+    mainMount.append(appSnackbar);
+  });
 
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js', {
-      scope: '/app/'
-    }).then(reg => {
-    })
-  })
+  subscribe("app-shell-ready", payload => {
+    let footerMount = document.querySelector("footer"),
+      appForm = document.createElement("app-form");
+
+    appForm.setAttribute("userid", payload["_u"]);
+
+    footerMount.append(appForm);
+  });
+
+  let _u = fetchItem("_u").then(obj => publish("app-shell-ready", { _u: obj }));
+});
+
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker
+      .register("/sw.js", {
+        scope: "/app/"
+      })
+      .then(reg => {});
+  });
 }

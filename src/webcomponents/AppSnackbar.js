@@ -9,9 +9,6 @@ import { publish, subscribe } from "./../lib/pubsub.js";
 const template = document.createElement("template");
 template.innerHTML = `
   <style>
-  :host {
-    display: block;
-  }
   #snackbar-container {
     position: fixed;
     z-index: 1000;
@@ -71,7 +68,7 @@ class AppSnackbar extends HTMLElement {
     if (newValue !== oldValue) {
       this[name] = newValue;
       this.snackbarElm.innerHTML = `<span>${newValue}</span>`;
-      setTimeout(() => this.toggleDisplay(), 500);
+      setTimeout(() => this.toggleDisplay(), 1500);
     }
   }
 
