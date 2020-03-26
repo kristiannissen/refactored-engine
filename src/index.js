@@ -70,11 +70,5 @@ document.addEventListener("DOMContentLoaded", e => {
 });
 
 if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker
-      .register("/sw.js", {
-        scope: "/app/"
-      })
-      .then(reg => {});
-  });
+  navigator.serviceWorker.register('/sw.js')
 }

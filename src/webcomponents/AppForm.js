@@ -19,7 +19,7 @@ template.innerHTML = `
   input {
     background-color: transparent;
     border: none;
-    border-bottom: 1px solid #9e9e9e;
+    border-bottom: 1px solid #481380;
     border-radius: 0;
     outline: none;
     height: 3rem;
