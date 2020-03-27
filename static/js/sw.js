@@ -1,49 +1,43 @@
 /**
  * sw.js
  */
+// Helpers
 const CACHE_NAME = "cache-0.0.1";
 let assets = [
   "/static/css/app-shell.css",
   "/static/js/main.bundle.js",
+  "/static/svgs/list-bg.svg",
+  "/static/favicon.ico",
+  "/static/android-chrome-192x192.png",
   "/app/",
   "/app/list/",
   "/app/share/"
 ];
-// Assets
-self.addEventListener("install", e => {
-  console.log("sw install", e);
 
-  e.waitUntil(preCache());
+self.addEventListener("install", event => {
+  console.log("sw install", event);
+  event.waitUntil(
+    caches.open(CACHE_NAME).then(cache => {
+      return cache.addAll(assets);
+    })
+  );
 });
-// Fetch
-self.addEventListener("fetch", e => {
-  console.log("sw fetch", e);
 
-  e.respondWith(fromCache(e.request));
-
-  e.waitUntil(updateCache(e.request));
+self.addEventListener("activate", event => {
+  console.log("sw activate", event);
 });
-// Activate
 
-// Helpers
-const preCache = () => {
-  return caches.open(CACHE_NAME).then(cache => {
-    return cache.addAll(assets);
-  });
-};
-
-const fromCache = req => {
-  return caches.open(CAHCE_NAME).then(cache => {
-    return cache.match(req).then(matching => {
-      return matching || Promise.reject("no-match");
-    });
-  });
-};
-
-const updateCaache = req => {
-  return caches.open(CACHE_NAME).then(cache => {
-    return fetch(req).then(resp => {
-      return cache.put(req, res);
-    });
-  });
-};
+self.addEventListener("fetch", event => {
+  console.log("sw fetch", event.request.url);
+  event.respondWith(
+    caches.match(event.request.url).then(cachedResponse => {
+      if (cachedResponse) {
+        console.log("sw fetch hit", event.request.url);
+        return cachedResponse;
+      } else {
+        console.log("sw fetch miss", event.request.url);
+        return fetch(event.request);
+      }
+    })
+  );
+});
