@@ -28,16 +28,23 @@ self.addEventListener("activate", event => {
 });
 
 self.addEventListener("fetch", event => {
-  console.log("sw fetch", event.request.url);
-  event.respondWith(
-    caches.match(event.request.url).then(cachedResponse => {
-      if (cachedResponse) {
-        console.log("sw fetch hit", event.request.url);
-        return cachedResponse;
-      } else {
-        console.log("sw fetch miss", event.request.url);
-        return fetch(event.request);
-      }
-    })
-  );
+  if (/app/.test(event.request.url)) {
+    event.respondWith(fromCache(event.request));
+
+    event.waitUntil(updateCache(event.request));
+  }
 });
+
+const fromCache = request => {
+  return caches.open(CACHE_NAME).then(cache => {
+    return cache.match(request).then(matching => {
+      return matching || Promise.reject("no match");
+    });
+  });
+};
+
+const updateCache = request => {
+  return caches.open(CACHE_NAME).then(cache => {
+    return fetch(request).then(response => cache.put(request, response));
+  });
+};
