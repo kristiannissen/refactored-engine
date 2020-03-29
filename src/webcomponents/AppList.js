@@ -71,7 +71,6 @@ class AppList extends HTMLElement {
       })
       .then(json => {
         this._list = json.user_lists;
-        localStorage.setItem("user_lists", JSON.stringify(json.user_lists));
         this.render();
 
         publish("list-fetched", {
