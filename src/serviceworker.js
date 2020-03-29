@@ -5,7 +5,7 @@
 const CACHE_NAME = "cache-0.0.1";
 let assets = [
   "/static/css/app-shell.css",
-  "/static/js/main.bundle.js",
+  "/static/js/main.js",
   "/static/svgs/list-bg.svg",
   "/static/favicon.ico",
   "/static/android-chrome-192x192.png",
@@ -24,17 +24,11 @@ self.addEventListener("install", event => {
 });
 
 self.addEventListener("activate", event => {
-  console.log("sw activate", event);
+  // console.log("sw activate", event);
 });
 
 self.addEventListener("fetch", event => {
-  if (/app/.test(event.request.url)) {
-    if (event.request.method == "GET") {
-      event.respondWith(fromCache(event.request));
-
-      event.waitUntil(updateCache(event.request));
-    }
-  }
+  console.log("sw fetch", event);
 });
 
 const fromCache = request => {

@@ -100,7 +100,7 @@ class AppList extends HTMLElement {
             .closest("[data-list-id]")
             .getAttribute("data-list-id")
         });*/
-        history.pushState({ id: 1 }, null, "/app/list/");
+        // history.pushState({ id: 1 }, null, "/app/list/");
       });
       list.appendChild(liElm);
     });

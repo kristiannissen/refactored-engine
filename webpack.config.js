@@ -3,7 +3,7 @@ const path = require("path");
 module.exports = {
   entry: {
     main: "./src/index.js",
-    sw: "./src/sw.js"
+    serviceworker: "./src/serviceworker.js"
   },
   output: {
     path: path.resolve(__dirname, "static/js"),

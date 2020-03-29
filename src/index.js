@@ -1,18 +1,6 @@
 /**
- * index.js
- * CustomEvent https://gomakethings.com/custom-events-with-vanilla-javascript/
- * HTMLElment https://dev.to/thepassle/web-components-from-zero-to-hero-4n4m
+ * Filename: index.js
  */
-
-/*
-(() => {
-  const listElm = document.querySelector('app-list')
-  if (listElm) listElm.setAttribute('userid', localStorage.getItem('_u') || 0)
-
-  const formElm = document.querySelector('app-form')
-  if (formElm) formElm.setAttribute('userid', localStorage.getItem('_u') || 0)
-})()
-*/
 
 import AppTitle from "./webcomponents/AppTitle.js";
 window.customElements.define("app-title", AppTitle);
@@ -64,6 +52,7 @@ document.addEventListener("DOMContentLoaded", e => {
     appForm.setAttribute("userid", payload["_u"]);
 
     footerMount.append(appForm);
+    console.log("app-form ready");
   });
 
   let _u = fetchItem("_u").then(obj => publish("app-shell-ready", { _u: obj }));
@@ -71,7 +60,6 @@ document.addEventListener("DOMContentLoaded", e => {
 
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker
-    .register("/sw.js")
-    .then(registration => navigator.serviceWorker.ready)
-    .then(registration => console.log(registration));
+    .register("/serviceworker.js", { scope: "/app/" })
+    .then(reg => console.log(reg));
 }

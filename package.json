@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "jest src/tests/",
-    "clean": "prettier --write src/**/*.js"
+    "clean": "find src/ -name '*.js' | xargs prettier --write"
   },
   "repository": {
     "type": "git",

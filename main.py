@@ -51,9 +51,9 @@ def app_share():
     return render_template('app.html')
 
 # Service worker
-@app.route('/sw.js')
+@app.route('/serviceworker.js')
 def service_worker():
-    return current_app.send_static_file('js/sw.js')
+    return current_app.send_static_file('js/serviceworker.js')
 
 
 @app.route('/app/service/<user_id>/lists/', methods=["GET", "POST"])
