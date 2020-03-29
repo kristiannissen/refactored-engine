@@ -52,7 +52,6 @@ document.addEventListener("DOMContentLoaded", e => {
     appForm.setAttribute("userid", payload["_u"]);
 
     footerMount.append(appForm);
-    console.log("app-form ready");
   });
 
   let _u = fetchItem("_u").then(obj => publish("app-shell-ready", { _u: obj }));
@@ -61,5 +60,14 @@ document.addEventListener("DOMContentLoaded", e => {
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker
     .register("/serviceworker.js", { scope: "/app/" })
-    .then(reg => console.log(reg));
+    .then(registration => {
+      let appFoo = document.querySelector('app-form'),
+        foo = appFoo._shadowRoot.querySelector('form')
+        foo.addEventListener('submit', e => {
+          if (registration.sync) {
+            registration.sync.register('save-list')
+              .catch(err => console.log(err))
+          }
+        })
+    });
 }
