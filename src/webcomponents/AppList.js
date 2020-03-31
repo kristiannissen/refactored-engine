@@ -77,7 +77,10 @@ class AppList extends HTMLElement {
           items: json.user_lists.length
         });
       })
-      .catch(error => console.log(error));
+      .catch(error => {
+        // TODO: indexedDB
+        console.log(error);
+      });
   }
 
   render() {

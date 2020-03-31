@@ -61,13 +61,14 @@ if ("serviceWorker" in navigator) {
   navigator.serviceWorker
     .register("/serviceworker.js", { scope: "/app/" })
     .then(registration => {
-      let appFoo = document.querySelector('app-form'),
-        foo = appFoo._shadowRoot.querySelector('form')
-        foo.addEventListener('submit', e => {
-          if (registration.sync) {
-            registration.sync.register('save-list')
-              .catch(err => console.log(err))
-          }
-        })
+      let appFoo = document.querySelector("app-form"),
+        foo = appFoo._shadowRoot.querySelector("form");
+      foo.addEventListener("submit", e => {
+        if (registration.sync) {
+          registration.sync
+            .register("save-list")
+            .catch(err => console.log(err));
+        }
+      });
     });
 }

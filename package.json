@@ -22,6 +22,7 @@
     "@babel/preset-es2017": "^7.0.0-beta.53",
     "babel-jest": "^25.1.0",
     "babel-preset-env": "^1.7.0",
+    "fake-indexeddb": "^3.0.0",
     "jest": "^25.1.0"
   }
 }

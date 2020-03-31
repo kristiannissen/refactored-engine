@@ -111,6 +111,11 @@ class AppForm extends HTMLElement {
           .then(json => {
             this.setAttribute("name", name);
             publish("list-added", { name: name });
+          })
+          .catch(err => {
+            // Network error
+            // TODO: Add indexedDB
+            console.log("app form", err);
           });
       }
     });
