@@ -105,7 +105,6 @@ class AppForm extends HTMLElement {
           name: name,
           items: []
         }).then(resp => {
-          console.log("indexedDB", resp);
           if ("SyncManager" in window) {
             navigator.serviceWorker.ready.then(reg =>
               reg.sync.register("list-added")
