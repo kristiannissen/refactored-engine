@@ -8,7 +8,6 @@ let assets = [
   "/static/js/main.js",
   "/static/svgs/list-bg.svg",
   "/static/favicon.ico",
-  "/static/android-chrome-192x192.png",
   "/app/",
   "/app/list/",
   "/app/share/"
@@ -24,25 +23,19 @@ self.addEventListener("install", event => {
 });
 
 self.addEventListener("activate", event => {
-  // console.log("sw activate", event);
+  console.log("sw activate", event)
+
+  event.waitUntil(async () => {
+    const cacheNames = await caches.keys()
+    await Promise.all(
+      cacheNames.filter(cacheName => {
+        console.log(cacheName)
+      })
+    ).map(cacheName => caches.delete(cacheName))
+  })
 });
 
 self.addEventListener("fetch", event => {
-  if (event.request.method == "GET") {
-    event.respondWith(
-      caches.open(CACHE_NAME).then(cache => {
-        return cache.match(event.request).then(response => {
-          return (
-            response ||
-            fetch(event.request).then(response => {
-              cache.put(event.request, response.clone());
-              return response;
-            })
-          );
-        });
-      })
-    );
-  }
 });
 
 self.addEventListener("sync", event => console.log("sw sync", event));

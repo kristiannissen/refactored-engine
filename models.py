@@ -14,12 +14,14 @@ datastore_client = datastore.Client()
 # Create user
 
 
-def user_create(email=None):
+def user_create(email=None, id_token=None, image_url=None):
     user_key = datastore_client.key('User')
     user = datastore.Entity(key=user_key)
     user['created_at'] = datetime.now()
     user['last_visit'] = datetime.now()
     user['email'] = email
+    user['id_token'] = id_token
+    user['image_url'] = image_url
 
     datastore_client.put(user)
 

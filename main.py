@@ -30,7 +30,7 @@ def signin():
 
         if user == None:
             # If the user/email doesn't exist, create it
-            user_create(email=data['email'])
+            user_create(email=data['email'], id_token=data['id_token'], image_url=data['image_url'])
             user = user_authenticate(email=data['email'])
 
         return jsonify(loc='/app/', user_id=user.id)
