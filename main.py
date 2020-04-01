@@ -73,6 +73,7 @@ def service_list_create(user_id=None):
                     'created_at': item['created_at'],
                     'items': item['items']
                 })
+            list_delete(item)
 
     return jsonify(user_lists=list_data)
 

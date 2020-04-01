@@ -8,9 +8,6 @@ window.customElements.define("app-title", AppTitle);
 import AppList from "./webcomponents/AppList.js";
 window.customElements.define("app-list", AppList);
 
-import AppListItem from "./webcomponents/AppListItem.js";
-window.customElements.define("app-list-item", AppListItem);
-
 import AppSnackbar from "./webcomponents/AppSnackbar.js";
 window.customElements.define("app-snackbar", AppSnackbar);
 

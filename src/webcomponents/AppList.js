@@ -5,6 +5,7 @@
 
 import { publish, subscribe } from "./../lib/pubsub.js";
 import { getAll } from "./../lib/dbfunc.js";
+import AppListItem from "./AppListItem.js";
 
 const template = document.createElement("template");
 template.innerHTML = `
@@ -22,6 +23,7 @@ class AppList extends HTMLElement {
     this._shadowRoot = this.attachShadow({ mode: "open" });
     this._shadowRoot.appendChild(template.content.cloneNode(true));
     this.rootElm = this._shadowRoot.querySelector("#app-list");
+    window.customElements.define("app-list-item", AppListItem);
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
@@ -36,7 +38,9 @@ class AppList extends HTMLElement {
 
   render(arr) {
     let elements = arr.map((item, indx) => {
-      return `<div key="${indx}">${item.name}</div>`;
+      return `<app-list-item key="${indx}" id="${item.id}" name="${
+        item.name
+      }"></app-list-item>`;
     });
     this.rootElm.innerHTML = elements;
   }
