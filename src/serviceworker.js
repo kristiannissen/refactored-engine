@@ -2,7 +2,7 @@
  * sw.js
  */
 // Helpers
-'use strict';
+"use strict";
 
 const CACHE_NAME = "cache-0.0.1";
 let assets = [
@@ -26,22 +26,22 @@ self.addEventListener("install", event => {
 });
 
 self.addEventListener("activate", event => {
-  console.log("sw activate", event)
+  console.log("sw activate", event);
 
   event.waitUntil(async () => {
-    const cacheNames = await caches.keys()
+    const cacheNames = await caches.keys();
     await Promise.all(
       cacheNames.filter(cacheName => {
-        console.log(cacheName)
+        console.log(cacheName);
       })
-    ).map(cacheName => caches.delete(cacheName))
-  })
+    ).map(cacheName => caches.delete(cacheName));
+  });
 });
 
 self.addEventListener("fetch", event => {
-  console.log("sw fetch", event)
+  console.log("sw fetch", event);
 
-  event.respondWith(fetch(event.request))
+  event.respondWith(fetch(event.request));
 });
 
 self.addEventListener("sync", event => console.log("sw sync", event));

@@ -26,5 +26,5 @@ test("resolves with error when key is not found", () => {
 });
 
 test("resolves when key is deleted", () => {
-  return expect(remove((1))).resolves.toBeUndefined();
-})
+  return expect(remove(1)).resolves.toBeUndefined();
+});
