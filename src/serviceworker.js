@@ -2,6 +2,8 @@
  * sw.js
  */
 // Helpers
+'use strict';
+
 const CACHE_NAME = "cache-0.0.1";
 let assets = [
   "/static/css/app-shell.css",
@@ -15,6 +17,7 @@ let assets = [
 
 self.addEventListener("install", event => {
   console.log("sw install", event);
+
   event.waitUntil(
     caches.open(CACHE_NAME).then(cache => {
       return cache.addAll(assets);
@@ -36,6 +39,9 @@ self.addEventListener("activate", event => {
 });
 
 self.addEventListener("fetch", event => {
+  console.log("sw fetch", event)
+
+  event.respondWith(fetch(event.request))
 });
 
 self.addEventListener("sync", event => console.log("sw sync", event));
