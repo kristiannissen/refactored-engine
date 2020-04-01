@@ -21,6 +21,10 @@ test("resolves object with key = key", () => {
   return expect(get(1)).resolves.toMatchObject({ name: "Kitty" });
 });
 
-test("rejects with error when key is not found", () => {
-  return expect(get(42)).rejects.toEqual(2);
+test("resolves with error when key is not found", () => {
+  return expect(get(42)).resolves.toBeUndefined();
 });
+
+test("resolves when key is deleted", () => {
+  return expect(remove((1))).resolves.toBeUndefined();
+})
