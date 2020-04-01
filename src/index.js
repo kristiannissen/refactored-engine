@@ -50,6 +50,7 @@ document.addEventListener("DOMContentLoaded", e => {
       appForm = document.createElement("app-form");
 
     appForm.setAttribute("userid", payload["_u"]);
+    appForm.setAttribute("name", "");
 
     footerMount.append(appForm);
   });
@@ -61,6 +62,7 @@ if ("serviceWorker" in navigator) {
   navigator.serviceWorker
     .register("/serviceworker.js", { scope: "/app/" })
     .then(registration => {
+      /*
       let appFoo = document.querySelector("app-form"),
         foo = appFoo._shadowRoot.querySelector("form");
       foo.addEventListener("submit", e => {
@@ -70,5 +72,6 @@ if ("serviceWorker" in navigator) {
             .catch(err => console.log(err));
         }
       });
+      */
     });
 }

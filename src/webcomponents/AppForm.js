@@ -4,6 +4,7 @@
 "use strict";
 
 import { subscribe, publish } from "./../lib/pubsub.js";
+import { add } from "./../lib/dbfunc.js";
 
 const template = document.createElement("template");
 template.innerHTML = `
@@ -97,26 +98,20 @@ class AppForm extends HTMLElement {
       e.preventDefault();
 
       let name = e.target["list_name"].value.trim();
+      this.setAttribute("name", name);
       if (name !== "") {
-        fetch(`/app/service/${userId}/lists/`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            list_name: name
-          })
-        })
-          .then(response => response.json())
-          .then(json => {
-            this.setAttribute("name", name);
-            publish("list-added", { name: name });
-          })
-          .catch(err => {
-            // Network error
-            // TODO: Add indexedDB
-            console.log("app form", err);
-          });
+        add({
+          id: Math.floor(Math.random() * Date.now()),
+          name: name,
+          items: []
+        }).then(resp => {
+          console.log("indexedDB", resp);
+          if ("SyncManager" in window) {
+            navigator.serviceWorker.ready.then(reg =>
+              reg.sync.register("list-added")
+            );
+          }
+        });
       }
     });
   }

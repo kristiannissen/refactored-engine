@@ -67,7 +67,6 @@ class AppList extends HTMLElement {
         if (response.ok) {
           return response.json();
         }
-        console.log(response);
       })
       .then(json => {
         this._list = json.user_lists;
