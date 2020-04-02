@@ -110,6 +110,7 @@ class AppForm extends HTMLElement {
               reg.sync.register("list-added")
             );
           }
+          publish('list-added', {list_name: name})
         });
       }
     });

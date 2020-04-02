@@ -33,11 +33,13 @@ class AppList extends HTMLElement {
   }
 
   connectedCallback() {
-    // TODO: Add subscribe listener
     getAll().then(resp => this.render(resp));
+    subscribe('list-added', payload => 
+      getAll().then(resp => this.render(resp)))
   }
 
   render(arr) {
+    this.rootElm.innerHTML = ''
     arr.forEach(item => {
       let elm = document.createElement("app-list-item");
       elm.setAttribute("name", item.name);
