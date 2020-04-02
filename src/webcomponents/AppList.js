@@ -38,13 +38,11 @@ class AppList extends HTMLElement {
   }
 
   render(arr) {
-    arr.forEach((item, indx) => {
-      // console.log(item)
-      let elm = document.createElement('app-list-item')
-      elm.setAttribute("key", indx)
-      elm.setAttribute("name", item.name)
-      this.rootElm.appendChild(elm)
-    })
+    arr.forEach(item => {
+      let elm = document.createElement("app-list-item");
+      elm.setAttribute("name", item.name);
+      this.rootElm.appendChild(elm);
+    });
   }
 }
 

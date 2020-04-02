@@ -10,6 +10,9 @@ let assets = [
   "/static/js/main.js",
   "/static/svgs/list-bg.svg",
   "/static/favicon.ico",
+  "/static/192x192.png",
+  "https://fonts.googleapis.com/css?family=Lato|Playfair+Display&display=swap",
+  "https://fonts.gstatic.com/s/lato/v16/S6uyw4BMUTPHjx4wXiWtFCc.woff2",
   "/app/",
   "/app/list/",
   "/app/share/"
@@ -48,8 +51,6 @@ self.addEventListener("activate", event => {
 });
 
 self.addEventListener("fetch", event => {
-  console.log("sw fetch", event.request.url);
-
   event.respondWith(
     caches
       .match(event.request)
