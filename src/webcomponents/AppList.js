@@ -33,16 +33,18 @@ class AppList extends HTMLElement {
   }
 
   connectedCallback() {
-    let arr = getAll().then(resp => this.render(resp));
+    // TODO: Add subscribe listener
+    getAll().then(resp => this.render(resp));
   }
 
   render(arr) {
-    let elements = arr.map((item, indx) => {
-      return `<app-list-item key="${indx}" id="${item.id}" name="${
-        item.name
-      }"></app-list-item>`;
-    });
-    this.rootElm.innerHTML = elements;
+    arr.forEach((item, indx) => {
+      // console.log(item)
+      let elm = document.createElement('app-list-item')
+      elm.setAttribute("key", indx)
+      elm.setAttribute("name", item.name)
+      this.rootElm.appendChild(elm)
+    })
   }
 }
 
