@@ -103,14 +103,15 @@ class AppForm extends HTMLElement {
         add({
           id: Math.floor(Math.random() * Date.now()),
           name: name,
-          items: []
+          items: [],
+          synced: false
         }).then(resp => {
           if ("SyncManager" in window) {
             navigator.serviceWorker.ready.then(reg =>
               reg.sync.register("list-added")
             );
           }
-          publish('list-added', {list_name: name})
+          publish("list-added", { list_name: name });
         });
       }
     });

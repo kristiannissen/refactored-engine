@@ -5,6 +5,8 @@
 
 import { publish, subscribe } from "./../lib/pubsub.js";
 import { getAll } from "./../lib/dbfunc.js";
+import { storeItem } from "./../lib/storage.js";
+
 import AppListItem from "./AppListItem.js";
 
 const template = document.createElement("template");
@@ -34,15 +36,24 @@ class AppList extends HTMLElement {
 
   connectedCallback() {
     getAll().then(resp => this.render(resp));
-    subscribe('list-added', payload => 
-      getAll().then(resp => this.render(resp)))
+    subscribe("list-added", payload =>
+      getAll().then(resp => this.render(resp))
+    );
   }
 
   render(arr) {
-    this.rootElm.innerHTML = ''
+    this.rootElm.innerHTML = "";
     arr.forEach(item => {
       let elm = document.createElement("app-list-item");
       elm.setAttribute("name", item.name);
+      elm.setAttribute("id", item.id);
+      elm.addEventListener("click", e => {
+        e.preventDefault();
+        storeItem("list_id", item.id).then(() => {
+          history.pushState(null, item.name, "/app/list/");
+          location.reload();
+        });
+      });
       this.rootElm.appendChild(elm);
     });
   }

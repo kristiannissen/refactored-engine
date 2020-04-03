@@ -31,7 +31,7 @@ class AppListItem extends HTMLElement {
 
   connectedCallback() {
     let elm = this._shadowRoot.querySelector("div");
-    elm.innerHTML = this.getAttribute("name");
+    elm.innerHTML = `<a href="/app/list/">${this["name"]}</a>`;
   }
 }
 
