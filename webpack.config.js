@@ -2,7 +2,8 @@ const path = require("path");
 
 module.exports = {
   entry: {
-    main: "./src/index.js",
+    app_index: "./src/app-index.js",
+    app_list: "./src/app-list.js",
     serviceworker: "./src/serviceworker.js"
   },
   output: {

@@ -7,7 +7,8 @@
 const CACHE_NAME = "cache-0.0.1";
 let assets = [
   "/static/css/app-shell.css",
-  "/static/js/main.js",
+  "/static/js/app_index.js",
+  "/static/js/app_list.js",
   "/static/svgs/list-bg.svg",
   "/static/favicon.ico",
   "/static/192x192.png",

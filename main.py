@@ -40,7 +40,7 @@ def signin():
 
 @app.route('/app/')
 def app_index():
-    return render_template('app.html')
+    return render_template('app-index.html')
 
 @app.route('/app/list/')
 def app_list():
@@ -48,7 +48,7 @@ def app_list():
 
 @app.route('/app/share/')
 def app_share():
-    return render_template('app.html')
+    return render_template('app-index.html')
 
 # Service worker
 @app.route('/serviceworker.js')
