@@ -59,7 +59,11 @@ self.addEventListener("fetch", event => {
         return (
           resp ||
           fetch(event.request).then(response => {
-            if (event.request.method === "GET") {
+            let url = new URL(event.request.url);
+            if (
+              event.request.method === "GET" &&
+              /app\/service/.test(url.pathName == true)
+            ) {
               let respClone = response.clone();
 
               caches

@@ -1,4 +1,4 @@
 /**
  * @filename app-list.js
  */
-console.log('Hello Pussy')
+console.log("Hello Pussy");

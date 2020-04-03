@@ -50,8 +50,7 @@ class AppList extends HTMLElement {
       elm.addEventListener("click", e => {
         e.preventDefault();
         storeItem("list_id", item.id).then(() => {
-          history.pushState(null, item.name, "/app/list/");
-          location.reload();
+          location.href = "/app/list/";
         });
       });
       this.rootElm.appendChild(elm);
