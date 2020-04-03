@@ -39,6 +39,7 @@ class AppList extends HTMLElement {
     subscribe("list-added", payload =>
       getAll().then(resp => this.render(resp))
     );
+    window.addEventListener("popstate", e => console.log(e));
   }
 
   render(arr) {
@@ -50,7 +51,8 @@ class AppList extends HTMLElement {
       elm.addEventListener("click", e => {
         e.preventDefault();
         storeItem("list_id", item.id).then(() => {
-          location.href = "/app/list/";
+          history.pushState({ id: item.id }, null, "/app/list/");
+          location.reload();
         });
       });
       this.rootElm.appendChild(elm);
