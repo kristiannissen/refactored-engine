@@ -52,7 +52,7 @@ class AppList extends HTMLElement {
         e.preventDefault();
         // history.pushState({ id: item.id }, null, "/app/list/");
         // location.reload();
-        document.location.href = '/app/list/'
+        document.location.href = "/app/list/";
       });
       this.rootElm.appendChild(elm);
     });
