@@ -7,16 +7,11 @@
 const CACHE_NAME = "cache-0.0.1";
 let assets = [
   "/static/css/app-shell.css",
-  "/static/js/app_index.js",
-  "/static/js/app_list.js",
   "/static/svgs/list-bg.svg",
   "/static/favicon.ico",
   "/static/192x192.png",
   "https://fonts.googleapis.com/css?family=Lato|Playfair+Display&display=swap",
-  "https://fonts.gstatic.com/s/lato/v16/S6uyw4BMUTPHjx4wXiWtFCc.woff2",
-  "/app/",
-  "/app/list/",
-  "/app/share/"
+  "https://fonts.gstatic.com/s/lato/v16/S6uyw4BMUTPHjx4wXiWtFCc.woff2"
 ];
 
 self.addEventListener("install", event => {

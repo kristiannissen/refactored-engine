@@ -39,7 +39,6 @@ class AppList extends HTMLElement {
     subscribe("list-added", payload =>
       getAll().then(resp => this.render(resp))
     );
-    window.addEventListener("app-list popstate", e => console.log(e));
   }
 
   render(arr) {
@@ -48,12 +47,12 @@ class AppList extends HTMLElement {
       let elm = document.createElement("app-list-item");
       elm.setAttribute("name", item.name);
       elm.setAttribute("id", item.id);
-      elm.addEventListener("click", e => {
-        e.preventDefault();
+      // elm.addEventListener("click", e => {
+        // e.preventDefault();
         // history.pushState({ id: item.id }, null, "/app/list/");
         // location.reload();
-        document.location.href = "/app/list/";
-      });
+        // document.location.href = "/app/list/";
+      // });
       this.rootElm.appendChild(elm);
     });
   }
