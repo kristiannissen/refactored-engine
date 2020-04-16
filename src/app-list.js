@@ -1,7 +1,7 @@
 /**
- * @filename app-list.js
+ * Filename: app-list.js
  */
 
-const mainElm = document.querySelector("main");
-mainElm.innerHTML = `<a href="/app/" data-navigation="/app/">Back</a>`;
+const render = () => "Hello Pussy " + Math.floor(Math.random());
 
+export default render;

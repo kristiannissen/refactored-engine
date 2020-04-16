@@ -48,10 +48,10 @@ class AppList extends HTMLElement {
       elm.setAttribute("name", item.name);
       elm.setAttribute("id", item.id);
       // elm.addEventListener("click", e => {
-        // e.preventDefault();
-        // history.pushState({ id: item.id }, null, "/app/list/");
-        // location.reload();
-        // document.location.href = "/app/list/";
+      // e.preventDefault();
+      // history.pushState({ id: item.id }, null, "/app/list/");
+      // location.reload();
+      // document.location.href = "/app/list/";
       // });
       this.rootElm.appendChild(elm);
     });
