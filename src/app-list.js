@@ -1,7 +1,7 @@
 /**
- * Filename: app-list.js
+ * Filename: app-index.js
  */
 
-const render = () => "Hello Pussy " + Math.floor(Math.random());
+const render = rootElm => `<a href="/app/">Go to app</a>`;
 
 export default render;

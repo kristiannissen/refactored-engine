@@ -22,7 +22,7 @@ const loadpath = (path, elm) => {
   let route = routes.find(r => r.uri === path);
   console.log("loading", route);
   import(/* webpackChunkName: `${route.module}` */ `./${route.module}`).then(
-    mod => mod.default(elm)
+    mod => (mountElement.innerHTML = mod.default(elm))
   );
 };
 
