@@ -36,7 +36,6 @@ h1 {
 class AppTitle extends HTMLElement {
   constructor() {
     super();
-    this._title = "";
     this._shadowRoot = this.attachShadow({ mode: "open" });
     this._shadowRoot.appendChild(template.content.cloneNode(true));
   }
@@ -46,20 +45,13 @@ class AppTitle extends HTMLElement {
   }
 
   connectedCallback() {
-    if (this.hasAttribute("title")) {
-      this.title = this.getAttribute("title");
-    }
-    this.render();
+    this._shadowRoot.querySelector("h1").innerHTML = this.title;
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
     if (oldValue !== newValue) {
-      this._title = newValue;
+      this[name] = newValue;
     }
-  }
-
-  render() {
-    this._shadowRoot.querySelector("h1").innerHTML = this.title;
   }
 }
 

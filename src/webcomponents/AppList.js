@@ -25,7 +25,6 @@ class AppList extends HTMLElement {
     this._shadowRoot = this.attachShadow({ mode: "open" });
     this._shadowRoot.appendChild(template.content.cloneNode(true));
     this.rootElm = this._shadowRoot.querySelector("#app-list");
-    window.customElements.define("app-list-item", AppListItem);
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
@@ -36,9 +35,6 @@ class AppList extends HTMLElement {
 
   connectedCallback() {
     getAll().then(resp => this.render(resp));
-    subscribe("list-added", payload =>
-      getAll().then(resp => this.render(resp))
-    );
   }
 
   render(arr) {
@@ -47,12 +43,6 @@ class AppList extends HTMLElement {
       let elm = document.createElement("app-list-item");
       elm.setAttribute("name", item.name);
       elm.setAttribute("id", item.id);
-      // elm.addEventListener("click", e => {
-      // e.preventDefault();
-      // history.pushState({ id: item.id }, null, "/app/list/");
-      // location.reload();
-      // document.location.href = "/app/list/";
-      // });
       this.rootElm.appendChild(elm);
     });
   }

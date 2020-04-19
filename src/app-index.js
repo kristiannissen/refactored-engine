@@ -2,6 +2,10 @@
  * Filename: app-index.js
  */
 
-const render = rootElm => `<a href="/app/list/">Go to list</a>`;
+const uid = localStorage.getItem("_u") || 0;
 
+const appTitle = document.querySelector("app-title");
+appTitle.setAttribute("title", "Hello Champ");
+
+const render = () => `<app-list userid="${uid}"></app-list>`;
 export default render;

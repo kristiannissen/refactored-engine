@@ -3,8 +3,6 @@
  */
 "use strict";
 
-import { publish, subscribe } from "./../lib/pubsub.js";
-
 const template = document.createElement("template");
 template.innerHTML = `<style>
     .list-item {
@@ -31,7 +29,9 @@ class AppListItem extends HTMLElement {
 
   connectedCallback() {
     let elm = this._shadowRoot.querySelector("div");
-    elm.innerHTML = `<a href="/app/list/">${this["name"]}</a>`;
+    elm.innerHTML = `<a href="/app/list/" data-item-id="${this["id"]}">${
+      this["name"]
+    }</a>`;
   }
 }
 

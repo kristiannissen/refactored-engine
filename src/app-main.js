@@ -2,6 +2,15 @@
  * @file app-main.js
  */
 
+import AppTitle from "./webcomponents/AppTitle.js";
+window.customElements.define("app-title", AppTitle);
+
+import AppList from "./webcomponents/AppList.js";
+window.customElements.define("app-list", AppList);
+
+import AppListItem from "./webcomponents/AppListItem.js";
+window.customElements.define("app-list-item", AppListItem);
+
 const routes = [
     {
       uri: "/app/",
@@ -20,16 +29,18 @@ const routes = [
 
 const loadpath = (path, elm) => {
   let route = routes.find(r => r.uri === path);
-  console.log("loading", route);
-  import(/* webpackChunkName: `${route.module}` */ `./${route.module}`).then(
-    mod => (mountElement.innerHTML = mod.default(elm))
+  // console.log("loading", route);
+  import(`./${route.module}`).then(
+    mod => (mountElement.innerHTML = mod.default())
   );
 };
 
 const addListener = (rootElm, sel, func) => {
   rootElm.addEventListener("click", e => {
-    if (e.target.tagName.toLowerCase() === sel) {
-      func(e);
+    let node = e.composedPath().find(n => n.nodeName === sel.toUpperCase());
+    if (node !== undefined) {
+      //console.log(e, node)
+      func(e, node);
     }
   });
 };
@@ -39,13 +50,14 @@ document.addEventListener("DOMContentLoaded", e => {
 
   loadpath(path, mountElement);
 
-  addListener(document.querySelector("main"), "a", e => {
+  addListener(document.querySelector("main"), "a", (e, elm) => {
+    let url = new URL(elm.href);
     history.pushState(
-      {},
-      e.target.pathname,
-      location.origin + e.target.pathname
+      { userid: localStorage.getItem("_u") || 0 },
+      url.pathname,
+      location.origin + url.pathname
     );
-    loadpath(e.target.pathname, mountElement);
+    loadpath(url.pathname, mountElement);
     e.preventDefault();
   });
 });
@@ -53,3 +65,9 @@ document.addEventListener("DOMContentLoaded", e => {
 window.onpopstate = () => {
   loadpath(window.location.pathname, mountElement);
 };
+
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker
+    .register("/serviceworker.js", { scope: "/app/" })
+    .then(registration => console.log("registration", registration));
+}
