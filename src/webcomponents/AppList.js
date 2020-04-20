@@ -35,6 +35,10 @@ class AppList extends HTMLElement {
 
   connectedCallback() {
     getAll().then(resp => this.render(resp));
+    subscribe("list-added", payload =>
+      getAll().then(resp => this.render(resp))
+    );
+    document.querySelector("app-title").setAttribute("title", "All Lists");
   }
 
   render(arr) {
@@ -45,6 +49,10 @@ class AppList extends HTMLElement {
       elm.setAttribute("id", item.id);
       this.rootElm.appendChild(elm);
     });
+    // TODO
+    let foo = document.createElement("app-list-form");
+    foo.setAttribute("name", "hello Kitty");
+    this.rootElm.appendChild(foo);
   }
 }
 

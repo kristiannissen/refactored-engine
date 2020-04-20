@@ -11,6 +11,9 @@ window.customElements.define("app-list", AppList);
 import AppListItem from "./webcomponents/AppListItem.js";
 window.customElements.define("app-list-item", AppListItem);
 
+import AppListForm from "./webcomponents/AppListForm.js";
+window.customElements.define("app-list-form", AppListForm);
+
 const routes = [
     {
       uri: "/app/",

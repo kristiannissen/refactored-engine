@@ -3,8 +3,8 @@
  */
 "use strict";
 
-import { subscribe, publish } from "./../lib/pubsub.js";
 import { add } from "./../lib/dbfunc.js";
+import { publish } from "./../lib/pubsub.js";
 
 const template = document.createElement("template");
 template.innerHTML = `
@@ -93,7 +93,6 @@ class AppForm extends HTMLElement {
 
   connectedCallback() {
     let userId = this.getAttribute("userid");
-
     this._shadowRoot.querySelector("form").addEventListener("submit", e => {
       e.preventDefault();
 
@@ -111,8 +110,8 @@ class AppForm extends HTMLElement {
               reg.sync.register("list-added")
             );
           }
-          publish("list-added", { list_name: name });
         });
+        publish("list-added", { listname: name });
       }
     });
   }
