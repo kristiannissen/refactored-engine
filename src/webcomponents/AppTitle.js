@@ -45,12 +45,19 @@ class AppTitle extends HTMLElement {
   }
 
   connectedCallback() {
-    this._shadowRoot.querySelector("h1").innerHTML = this.title;
+    this.updateComponent("title", this.getAttribute("title"));
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
     if (oldValue !== newValue) {
-      this[name] = newValue;
+      this.updateComponent(name, newValue);
+    }
+  }
+
+  updateComponent(name, value) {
+    let elm = this._shadowRoot.querySelector("h1");
+    if (value !== "") {
+      elm.innerHTML = value.trim();
     }
   }
 }

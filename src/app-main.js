@@ -70,7 +70,5 @@ window.onpopstate = () => {
 };
 
 if ("serviceWorker" in navigator) {
-  navigator.serviceWorker
-    .register("/serviceworker.js", { scope: "/app/" })
-    .then(registration => console.log("registration", registration));
+  navigator.serviceWorker.register("/serviceworker.js", { scope: "/app/" });
 }

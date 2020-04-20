@@ -15,7 +15,7 @@ let assets = [
 ];
 
 self.addEventListener("install", event => {
-  console.log("sw install", event);
+  // console.log("sw install", event);
 
   self.skipWaiting();
 
@@ -27,7 +27,7 @@ self.addEventListener("install", event => {
 });
 
 self.addEventListener("activate", event => {
-  console.log("sw activate", event);
+  // console.log("sw activate", event);
 
   self.clients.claim();
 
@@ -75,7 +75,7 @@ self.addEventListener("fetch", event => {
   );
 });
 
-self.addEventListener("sync", event => console.log("sw sync", event));
+// self.addEventListener("sync", event => console.log("sw sync", event));
 
 const fromCache = request => {
   return caches.open(CACHE_NAME).then(cache => {
