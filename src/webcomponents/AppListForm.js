@@ -16,6 +16,7 @@ template.innerHTML = `
   form {
     display: flex;
     align-items: baseline;
+    padding: 5px 10px;
   }
   input {
     background-color: transparent;
@@ -65,8 +66,7 @@ template.innerHTML = `
   </style>
   <form autocomplete="off">
     <div class="f-g">      
-      <input type="text" name="list_name" value="">
-      <label>Name of List</label>
+      <input type="text" name="list_name" value="" placeholder="List name">
     </div>
     <div class="f-g">
       <button type="submit">Save</button>
@@ -76,7 +76,7 @@ template.innerHTML = `
 
 class AppForm extends HTMLElement {
   static get observedAttributes() {
-    return ["name", "userid"];
+    return ["name"];
   }
 
   constructor(...args) {
@@ -92,7 +92,6 @@ class AppForm extends HTMLElement {
   }
 
   connectedCallback() {
-    let userId = this.getAttribute("userid");
     this._shadowRoot.querySelector("form").addEventListener("submit", e => {
       e.preventDefault();
 
@@ -100,7 +99,7 @@ class AppForm extends HTMLElement {
       this.setAttribute("name", name);
       if (name !== "") {
         add({
-          id: Math.floor(Math.random() * Date.now()),
+          id: Math.floor(Math.random() * Date.now()).toString(),
           name: name,
           items: [],
           synced: false

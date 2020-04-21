@@ -1,18 +1,16 @@
 /**
  * @file app-main.js
  */
-
-import AppTitle from "./webcomponents/AppTitle.js";
-window.customElements.define("app-title", AppTitle);
-
 import AppList from "./webcomponents/AppList.js";
 window.customElements.define("app-list", AppList);
-
-import AppListItem from "./webcomponents/AppListItem.js";
-window.customElements.define("app-list-item", AppListItem);
-
 import AppListForm from "./webcomponents/AppListForm.js";
 window.customElements.define("app-list-form", AppListForm);
+import AppListItem from "./webcomponents/AppListItem.js";
+window.customElements.define("app-list-item", AppListItem);
+import AppItemList from "./webcomponents/AppItemList.js";
+window.customElements.define("app-item-list", AppItemList);
+import SelectionList from "./webcomponents/SelectionList.js";
+window.customElements.define("selection-list", SelectionList);
 
 const routes = [
     {
@@ -33,8 +31,8 @@ const routes = [
 const loadpath = (path, elm) => {
   let route = routes.find(r => r.uri === path);
   // console.log("loading", route);
-  import(`./${route.module}`).then(
-    mod => (mountElement.innerHTML = mod.default())
+  import(`./${route.module}`).then(mod =>
+    mod.default().then(html => (mountElement.innerHTML = html))
   );
 };
 
