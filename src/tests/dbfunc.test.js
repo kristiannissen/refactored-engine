@@ -5,7 +5,7 @@
 
 require("fake-indexeddb/auto");
 
-import { add, remove, get, getAll } from "./../lib/dbfunc.js";
+import { add, remove, get, getAll } from "./../utils/dbfunc.js";
 
 test("resolves when object is stored", () => {
   return expect(

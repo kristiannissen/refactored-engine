@@ -3,7 +3,7 @@
  */
 "use strict";
 
-import { subscribe, publish } from "./../lib/pubsub.js";
+import { subscribe, publish } from "./../utils/pubsub.js";
 import AppTitle from "./AppTitle.js";
 
 const template = document.createElement("template");

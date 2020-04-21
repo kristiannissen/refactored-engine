@@ -3,9 +3,9 @@
  */
 "use strict";
 
-import { publish, subscribe } from "./../lib/pubsub.js";
-import { getAll } from "./../lib/dbfunc.js";
-import { storeItem } from "./../lib/storage.js";
+import { publish, subscribe } from "./../utils/pubsub.js";
+import { getAll } from "./../utils/dbfunc.js";
+import { storeItem } from "./../utils/storage.js";
 
 import AppListItem from "./AppListItem.js";
 

@@ -2,7 +2,7 @@
  * @file router.test.js
  */
 
-import Router from "./../lib/router.js";
+import Router from "./../utils/router.js";
 
 const router = new Router("[data-navigation]");
 

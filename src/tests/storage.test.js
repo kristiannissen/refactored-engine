@@ -5,7 +5,7 @@
 jest.spyOn(window.localStorage.__proto__, "setItem");
 jest.spyOn(window.localStorage.__proto__, "getItem");
 
-import { storeItem, fetchItem } from "./../lib/storage.js";
+import { storeItem, fetchItem } from "./../utils/storage.js";
 
 test("returns true when item is stored", () => {
   expect.assertions(1);

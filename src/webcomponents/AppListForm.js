@@ -3,8 +3,8 @@
  */
 "use strict";
 
-import { add } from "./../lib/dbfunc.js";
-import { publish } from "./../lib/pubsub.js";
+import { add } from "./../utils/dbfunc.js";
+import { publish } from "./../utils/pubsub.js";
 
 const template = document.createElement("template");
 template.innerHTML = `

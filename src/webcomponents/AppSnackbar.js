@@ -4,7 +4,7 @@
  */
 "use strict";
 
-import { publish, subscribe } from "./../lib/pubsub.js";
+import { publish, subscribe } from "./../utils/pubsub.js";
 
 const template = document.createElement("template");
 template.innerHTML = `

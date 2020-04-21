@@ -2,12 +2,10 @@
  * Filename: app-list.js
  */
 
-import { get } from "./lib/dbfunc.js";
+import { get } from "./utils/dbfunc.js";
 
 const listid = localStorage.getItem("listid") || 0;
-
-get(listid).then(entry => console.log(entry));
-
+get(listid).then(r => console.log(r))
 const render = () => `<a href="/app/">Go to app</a>`;
 
 export default render;
