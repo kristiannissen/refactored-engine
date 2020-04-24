@@ -26,8 +26,6 @@ header {
 }
 main {
   height: 75%;
-  background-image: url('/static/svgs/list-bg.svg');
-  background-repeat-x: no-repeat;
 }
 app-title,
 app-list,

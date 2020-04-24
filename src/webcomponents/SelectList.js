@@ -4,7 +4,12 @@
 "use strict";
 
 const template = document.createElement("template");
-template.innerHTML = '<div id="mount"></div>';
+template.innerHTML = `<style>
+    option {
+      padding: 10px 20px;
+    }
+  </style>
+  <div id="mount"></div>`;
 
 class SelectList extends HTMLElement {
   constructor(...args) {
@@ -15,7 +20,6 @@ class SelectList extends HTMLElement {
 
     this.index = -1;
     this.options = [];
-    this.addEventListener = this.addEventListener.bind(this);
   }
 
   get selectedIndex() {
@@ -27,7 +31,20 @@ class SelectList extends HTMLElement {
   }
 
   connectedCallback() {
-    console.log("connected", this.options);
+    let options = this._root.querySelectorAll("option");
+    this._root.addEventListener("click", e => {
+      let opt = e.target;
+      for (let i = 0; i < options.length; i++) {
+        if (options[i] === opt) this.index = i;
+      }
+      const event = new CustomEvent("select", {
+        detail: {
+          option: opt.value,
+          index: this.index
+        }
+      });
+      this.dispatchEvent(event);
+    });
   }
 
   disconnectedCallback() {
@@ -37,7 +54,9 @@ class SelectList extends HTMLElement {
   adopedCallback() {}
 
   add(opt) {
-    this._root.appendChild(opt);
+    let slot = document.createElement("slot");
+    slot.appendChild(opt);
+    this._root.appendChild(slot);
   }
 }
 

@@ -17,6 +17,9 @@ const render = () =>
         let opt = new Option(item.name, item.id);
         selectList.add(opt);
       });
+
+      selectList.addEventListener("select", e => console.log(e));
+
       div.appendChild(selectList);
       return resolve(div);
     });

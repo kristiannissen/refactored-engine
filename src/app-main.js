@@ -50,13 +50,9 @@ document.addEventListener("DOMContentLoaded", e => {
 
   loadpath(path, mountElement);
 
-  addListener(document.querySelector("main"), "a", (e, elm) => {
-    let url = new URL(elm.href);
-    history.pushState(
-      { userid: localStorage.getItem("_u") || 0 },
-      url.pathname,
-      location.origin + url.pathname
-    );
+  addListener(document.querySelector("main"), "option", (e, elm) => {
+    let url = new URL(location.origin + "/app/list/");
+    history.pushState({}, url.pathname, location.origin + url.pathname);
     loadpath(url.pathname, mountElement);
     e.preventDefault();
   });
