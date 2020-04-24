@@ -9,8 +9,7 @@ import AppListItem from "./webcomponents/AppListItem.js";
 window.customElements.define("app-list-item", AppListItem);
 import AppItemList from "./webcomponents/AppItemList.js";
 window.customElements.define("app-item-list", AppItemList);
-import SelectionList from "./webcomponents/SelectionList.js";
-window.customElements.define("selection-list", SelectionList);
+import SelectList from "./webcomponents/SelectList.js";
 
 const routes = [
     {
@@ -32,7 +31,7 @@ const loadpath = (path, elm) => {
   let route = routes.find(r => r.uri === path);
   // console.log("loading", route);
   import(`./${route.module}`).then(mod =>
-    mod.default().then(html => (mountElement.innerHTML = html))
+    mod.default().then(html => mountElement.appendChild(html))
   );
 };
 
