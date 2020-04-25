@@ -16,7 +16,7 @@ const db = (name, version) => {
         autoIncrement: false,
         keyPath: "id"
       });
-      store.createIndex("id", "id", { unique: true });
+      store.createIndex("indx_id", "id", { unique: true });
     };
     req.onsuccess = event => resolve(event.target.result);
     req.onerror = event => reject(event.target);
@@ -57,7 +57,7 @@ const remove = key => {
 const get = key => {
   return new Promise((resolve, reject) => {
     db(DB_NAME, DB_VERSION).then(res => {
-      let trans = res.transaction([DB_NAME], "readonly");
+      let trans = res.transaction([DB_NAME], "readwrite");
       let store = trans.objectStore(DB_NAME);
       let req = store.get(key);
       req.onsuccess = event => resolve(event.target.result);

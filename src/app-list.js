@@ -2,15 +2,22 @@
  * Filename: app-list.js
  */
 
-import { get } from "./utils/dbfunc.js";
+import { get, add } from "./utils/dbfunc.js";
 
 const listid = localStorage.getItem("listid") || 0;
 
-let div = document.createElement("div");
-div.innerHTML = `Hello Pussy`;
+const div = document.createElement("div");
+const title = document.querySelector("app-title");
 
-const render = () => new Promise(resolve => {
-  return resolve(div)
-});
+const render = () =>
+  new Promise(resolve => {
+    return get(listid).then(res => {
+      let selectList = document.createElement("select-list");
+      res.items.forEach(item => selectList.add(new Option(item.name)));
+      div.appendChild(selectList);
+      title.setAttribute("title", res.name);
+      return resolve(div);
+    });
+  });
 
 export default render;
