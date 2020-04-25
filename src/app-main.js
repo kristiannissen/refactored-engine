@@ -30,6 +30,7 @@ const routes = [
 const loadpath = (path, elm) => {
   let route = routes.find(r => r.uri === path);
   // console.log("loading", route);
+  mountElement.innerHTML = ''
   import(`./${route.module}`).then(mod =>
     mod.default().then(html => mountElement.appendChild(html))
   );

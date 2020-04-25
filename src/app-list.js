@@ -14,6 +14,8 @@ const render = () =>
     return get(listid).then(res => {
       let selectList = document.createElement("select-list");
       res.items.forEach(item => selectList.add(new Option(item.name)));
+      selectList.setAttribute('data-id', listid)
+      selectList.addEventListener("select", e => console.log(e));
       div.appendChild(selectList);
       title.setAttribute("title", res.name);
       return resolve(div);
