@@ -4,22 +4,24 @@
 
 import { get, add } from "./utils/dbfunc.js";
 
-const listid = localStorage.getItem("listid") || 0;
+const id = localStorage.getItem("_l") || 0;
 
 const div = document.createElement("div");
+const key = Math.floor(Math.random() * (new Date()).getTime())
+div.setAttribute('data-key', key)
+
 const title = document.querySelector("app-title");
 
-const render = () =>
-  new Promise(resolve => {
-    return get(listid).then(res => {
-      let selectList = document.createElement("select-list");
-      res.items.forEach(item =>
-        selectList.add({ id: item.id, name: item.name })
-      );
-      div.appendChild(selectList);
-      title.setAttribute("title", res.name);
-      return resolve(div);
-    });
-  });
-
+const render = () => new Promise(resolve => {
+  div.innerHTML = ''
+  return get(id).then(result => {
+    title.setAttribute('title', result.name)
+    let selectList = document.createElement('select-list')
+    result.items.forEach(item => {
+      selectList.add({id: item.id, name: item.name})
+    })
+    div.appendChild(selectList)
+    return resolve(div)
+  })
+})
 export default render;

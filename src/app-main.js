@@ -24,8 +24,7 @@ const loadpath = (path, elm) => {
   let route = routes.find(r => r.uri === path);
   mountElement.firstChild.remove();
   import(`./${route.module}`).then(mod =>
-    mod.default().then(html => mountElement.appendChild(html))
-  );
+    mod.default().then(node => mountElement.appendChild(node)));
 };
 
 const addListener = (rootElm, sel, func) => {

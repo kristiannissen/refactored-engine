@@ -19,7 +19,6 @@ class SelectList extends HTMLElement {
     this._root = this._shadowRoot.querySelector("#select-list");
 
     this.index = -1;
-    this.options = [];
   }
 
   get selectedIndex() {
@@ -31,15 +30,16 @@ class SelectList extends HTMLElement {
   }
 
   connectedCallback() {
+    console.log('connected')
     let options = this._root.querySelectorAll("[data-select-item]");
     this._root.addEventListener("click", e => {
       let opt = e.target;
       for (let i = 0; i < options.length; i++) {
-        if (options[i] === opt) this.index = i;
+        if (options[i].firstChild === opt) this.index = i;
       }
       const event = new CustomEvent("select", {
         detail: {
-          option: opt.value,
+          id: opt.parentNode.getAttribute('data-select-item'),
           index: this.index
         }
       });
@@ -51,8 +51,6 @@ class SelectList extends HTMLElement {
   disconnectedCallback() {
     console.log("disconnected");
   }
-
-  adopedCallback() {}
 
   add(opt) {
     let elm = document.createElement("div");
