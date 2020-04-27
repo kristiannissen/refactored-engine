@@ -13,9 +13,9 @@ const render = () =>
   new Promise(resolve => {
     return get(listid).then(res => {
       let selectList = document.createElement("select-list");
-      res.items.forEach(item => selectList.add(new Option(item.name)));
-      selectList.setAttribute('data-id', listid)
-      selectList.addEventListener("select", e => console.log(e));
+      res.items.forEach(item =>
+        selectList.add({ id: item.id, name: item.name })
+      );
       div.appendChild(selectList);
       title.setAttribute("title", res.name);
       return resolve(div);

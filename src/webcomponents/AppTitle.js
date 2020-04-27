@@ -62,4 +62,4 @@ class AppTitle extends HTMLElement {
   }
 }
 
-export default AppTitle;
+export default customElements.define("app-title", AppTitle);

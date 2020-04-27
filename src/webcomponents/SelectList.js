@@ -5,18 +5,18 @@
 
 const template = document.createElement("template");
 template.innerHTML = `<style>
-    option {
+    [data-select-item] {
       padding: 10px 20px;
     }
   </style>
-  <div id="mount"></div>`;
+  <div id="select-list"></div>`;
 
 class SelectList extends HTMLElement {
   constructor(...args) {
     super(...args);
     this._shadowRoot = this.attachShadow({ mode: "open" });
     this._shadowRoot.appendChild(template.content.cloneNode(true));
-    this._root = this._shadowRoot.querySelector("#mount");
+    this._root = this._shadowRoot.querySelector("#select-list");
 
     this.index = -1;
     this.options = [];
@@ -31,7 +31,7 @@ class SelectList extends HTMLElement {
   }
 
   connectedCallback() {
-    let options = this._root.querySelectorAll("option");
+    let options = this._root.querySelectorAll("[data-select-item]");
     this._root.addEventListener("click", e => {
       let opt = e.target;
       for (let i = 0; i < options.length; i++) {
@@ -43,6 +43,7 @@ class SelectList extends HTMLElement {
           index: this.index
         }
       });
+      e.preventDefault();
       this.dispatchEvent(event);
     });
   }
@@ -54,9 +55,10 @@ class SelectList extends HTMLElement {
   adopedCallback() {}
 
   add(opt) {
-    let slot = document.createElement("slot");
-    slot.appendChild(opt);
-    this._root.appendChild(slot);
+    let elm = document.createElement("div");
+    elm.setAttribute("data-select-item", opt.id);
+    elm.innerHTML = `<span>${opt.name}</span>`;
+    this._root.appendChild(elm);
   }
 }
 

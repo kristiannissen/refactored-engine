@@ -7,19 +7,15 @@ import { getAll } from "./utils/dbfunc.js";
 const uid = localStorage.getItem("_u") || 0;
 
 const div = document.createElement("div");
-div.setAttribute("id", "wrapper");
 
 const render = () =>
   new Promise(resolve => {
     return getAll().then(res => {
       let selectList = document.createElement("select-list");
+      selectList.setAttribute("data-path", "/app/list/");
       res.forEach(item => {
-        let opt = new Option(item.name, item.id);
-        selectList.add(opt);
+        selectList.add({ id: item.id, name: item.name });
       });
-
-      selectList.addEventListener("select", e => console.log(e));
-
       div.appendChild(selectList);
       return resolve(div);
     });

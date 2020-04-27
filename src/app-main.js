@@ -1,15 +1,8 @@
 /**
  * @file app-main.js
  */
-import AppList from "./webcomponents/AppList.js";
-window.customElements.define("app-list", AppList);
-import AppListForm from "./webcomponents/AppListForm.js";
-window.customElements.define("app-list-form", AppListForm);
-import AppListItem from "./webcomponents/AppListItem.js";
-window.customElements.define("app-list-item", AppListItem);
-import AppItemList from "./webcomponents/AppItemList.js";
-window.customElements.define("app-item-list", AppItemList);
-import SelectList from "./webcomponents/SelectList.js";
+import AppTitle from "./webcomponents/AppTitle";
+import SelectList from "./webcomponents/SelectList";
 
 const routes = [
     {
@@ -29,8 +22,7 @@ const routes = [
 
 const loadpath = (path, elm) => {
   let route = routes.find(r => r.uri === path);
-  // console.log("loading", route);
-  mountElement.innerHTML = ''
+  mountElement.firstChild.remove();
   import(`./${route.module}`).then(mod =>
     mod.default().then(html => mountElement.appendChild(html))
   );
@@ -51,8 +43,8 @@ document.addEventListener("DOMContentLoaded", e => {
 
   loadpath(path, mountElement);
 
-  addListener(document.querySelector("main"), "option", (e, elm) => {
-    let url = new URL(location.origin + "/app/list/");
+  addListener(document.querySelector("main"), "select-list", (e, elm) => {
+    let url = new URL(location.origin + elm.getAttribute("data-path"));
     history.pushState({}, url.pathname, location.origin + url.pathname);
     loadpath(url.pathname, mountElement);
     e.preventDefault();
