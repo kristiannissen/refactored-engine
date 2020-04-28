@@ -30,7 +30,7 @@ class SelectList extends HTMLElement {
   }
 
   connectedCallback() {
-    console.log('connected')
+    console.log("connected");
     let options = this._root.querySelectorAll("[data-select-item]");
     this._root.addEventListener("click", e => {
       let opt = e.target;
@@ -39,7 +39,7 @@ class SelectList extends HTMLElement {
       }
       const event = new CustomEvent("select", {
         detail: {
-          id: opt.parentNode.getAttribute('data-select-item'),
+          id: opt.parentNode.getAttribute("data-select-item"),
           index: this.index
         }
       });
@@ -52,10 +52,10 @@ class SelectList extends HTMLElement {
     console.log("disconnected");
   }
 
-  add(opt) {
+  add(obj) {
     let elm = document.createElement("div");
-    elm.setAttribute("data-select-item", opt.id);
-    elm.innerHTML = `<span>${opt.name}</span>`;
+    elm.setAttribute("data-select-item", obj.id);
+    elm.innerHTML = `<span>${obj.name}</span>`;
     this._root.appendChild(elm);
   }
 }

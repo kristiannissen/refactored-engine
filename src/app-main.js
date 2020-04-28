@@ -24,7 +24,8 @@ const loadpath = (path, elm) => {
   let route = routes.find(r => r.uri === path);
   mountElement.firstChild.remove();
   import(`./${route.module}`).then(mod =>
-    mod.default().then(node => mountElement.appendChild(node)));
+    mod.default().then(node => mountElement.appendChild(node))
+  );
 };
 
 const addListener = (rootElm, sel, func) => {
@@ -43,7 +44,11 @@ document.addEventListener("DOMContentLoaded", e => {
   loadpath(path, mountElement);
 
   addListener(document.querySelector("main"), "select-list", (e, elm) => {
-    let url = new URL(location.origin + elm.getAttribute("data-path"));
+    let path =
+      elm.getAttribute("data-path") !== null
+        ? elm.getAttribute("data-path")
+        : "/app/";
+    let url = new URL(location.origin + path);
     history.pushState({}, url.pathname, location.origin + url.pathname);
     loadpath(url.pathname, mountElement);
     e.preventDefault();
