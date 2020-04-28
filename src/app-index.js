@@ -3,6 +3,7 @@
  */
 
 import { getAll } from "./utils/dbfunc.js";
+import { navigate } from "./utils/navigation.js";
 
 const uid = localStorage.getItem("_u") || 0;
 
@@ -18,10 +19,10 @@ const render = () =>
       title.setAttribute("title", "Index");
       div.innerHTML = "";
       let selectList = document.createElement("select-list");
-      selectList.setAttribute("data-path", "/app/list/");
       selectList.addEventListener("select", e => {
         e.preventDefault();
         localStorage.setItem("_l", e.detail.id);
+        navigate("/app/list/", e.target);
       });
       result.forEach(item => {
         selectList.add({ id: item.id, name: item.name });

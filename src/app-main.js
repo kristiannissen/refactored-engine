@@ -43,6 +43,14 @@ document.addEventListener("DOMContentLoaded", e => {
 
   loadpath(path, mountElement);
 
+  document.addEventListener("navigate", e => {
+    let url = new URL(location.origin + e.detail.path);
+    history.pushState({}, url.pathname, location.origin + url.pathname);
+    loadpath(url.pathname, mountElement);
+    e.preventDefault();
+  });
+
+  /*
   addListener(document.querySelector("main"), "select-list", (e, elm) => {
     let path =
       elm.getAttribute("data-path") !== null
@@ -53,6 +61,7 @@ document.addEventListener("DOMContentLoaded", e => {
     loadpath(url.pathname, mountElement);
     e.preventDefault();
   });
+  */
 });
 
 window.onpopstate = () => {
