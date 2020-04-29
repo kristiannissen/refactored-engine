@@ -30,7 +30,7 @@ h1 {
   
 }
 </style>
-<h1></h1>
+<div><h1></h1></div>
 `;
 
 class AppTitle extends HTMLElement {
@@ -41,24 +41,16 @@ class AppTitle extends HTMLElement {
   }
 
   static get observedAttributes() {
-    return ["title"];
+    return ["title", "backbutton"];
   }
 
   connectedCallback() {
-    this.updateComponent("title", this.getAttribute("title"));
+    // console.log("title connected");
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
-    if (oldValue !== newValue) {
-      this.updateComponent(name, newValue);
-    }
-  }
-
-  updateComponent(name, value) {
-    let elm = this._shadowRoot.querySelector("h1");
-    if (value !== "") {
-      elm.innerHTML = value.trim();
-    }
+    // console.log("title attributechanged");
+    // console.log(name, oldValue, newValue);
   }
 }
 

@@ -30,7 +30,7 @@ class SelectList extends HTMLElement {
   }
 
   connectedCallback() {
-    console.log("connected");
+    // console.log("connected");
     let options = this._root.querySelectorAll("[data-select-item]");
     this._root.addEventListener("click", e => {
       let opt = e.target;
@@ -49,7 +49,7 @@ class SelectList extends HTMLElement {
   }
 
   disconnectedCallback() {
-    console.log("disconnected");
+    // console.log("disconnected");
   }
 
   add(obj) {
