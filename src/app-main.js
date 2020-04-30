@@ -4,6 +4,7 @@
 import AppTitle from "./webcomponents/AppTitle";
 import SelectList from "./webcomponents/SelectList";
 import FormDialog from "./webcomponents/FormDialog";
+import FloatingButton from "./webcomponents/FloatingButton";
 
 const routes = [
     {

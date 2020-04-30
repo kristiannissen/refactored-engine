@@ -2,7 +2,7 @@
  * Filename: app-index.js
  */
 
-import { getAll } from "./utils/dbfunc.js";
+import { getAll, add } from "./utils/dbfunc.js";
 import { navigate } from "./utils/navigation.js";
 
 const uid = localStorage.getItem("_u") || 0;
@@ -12,14 +12,35 @@ const key = Math.floor(Math.random() * new Date().getTime());
 div.setAttribute("data-key", key);
 
 const title = document.querySelector("app-title");
-const formDialog = document.querySelector("form-dialog");
-// TODO: Could be extracted and be a component
-const floatingButton = document.createElement("button");
-floatingButton.innerHTML = `Add`;
-floatingButton.addEventListener("click", e => {
-  e.preventDefault();
-  formDialog.toggleOpen();
-});
+
+const form = () => {
+  const form = document.createElement("form-dialog");
+  form.addField({
+    name: "name",
+    type: "text",
+    value: "",
+    placeholder: "List Name"
+  });
+
+  form.addEventListener("close", e => {
+    add({
+      id: Math.floor(Math.random() * new Date().getTime()),
+      name: e.detail.formData.name,
+      items: [],
+      synced: false
+    }).then(res => navigate("/app/list/", div));
+  });
+  return form;
+};
+
+const floatingButton = () => {
+  const button = document.createElement("floating-button");
+  button.addEventListener("click", e => {
+    const foo = document.querySelector("form-dialog");
+    foo.toggleOpen();
+  });
+  return button;
+};
 
 const render = () =>
   new Promise(resolve =>
@@ -37,7 +58,9 @@ const render = () =>
       });
       div.appendChild(selectList);
       // Append floating button
-      div.appendChild(floatingButton);
+      div.appendChild(floatingButton());
+      // Append form dialog
+      div.appendChild(form());
       return resolve(div);
     })
   );
