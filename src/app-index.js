@@ -2,16 +2,13 @@
  * Filename: app-index.js
  */
 
-import { getAll, add } from "./utils/dbfunc.js";
-import { navigate } from "./utils/navigation.js";
-
-const uid = localStorage.getItem("_u") || 0;
+import { getAll, add } from "./utils/dbfunc";
+import { navigate } from "./utils/navigation";
+import { publish, subscribe } from "./utils/pubsub";
 
 const div = document.createElement("div");
 const key = Math.floor(Math.random() * new Date().getTime());
 div.setAttribute("data-key", key);
-
-const title = document.querySelector("app-title");
 
 const form = () => {
   const form = document.createElement("form-dialog");
@@ -42,29 +39,27 @@ const floatingButton = () => {
   return button;
 };
 
-const setState = (state) => state
+const updateList = elm => {
+  let selectList = document.createElement("select-list");
+  subscribe("list-change", payload => {
+    payload.forEach(item => selectList.add({ id: item.id, name: item.name }));
+  });
+  selectList.addEventListener("select", e => {
+    e.preventDefault();
+    localStorage.setItem("_l", e.detail.id);
+    navigate("/app/list/", e.target);
+  });
+  return selectList;
+};
+
+getAll().then(resp => publish("list-change", resp));
 
 const render = () =>
-  new Promise(resolve =>
-    getAll().then(result => {
-      title.setAttribute("title", "Index");
-      div.innerHTML = "";
-      let selectList = document.createElement("select-list");
-      selectList.setAttribute('data-bind', 'list')
-      selectList.addEventListener("select", e => {
-        e.preventDefault();
-        localStorage.setItem("_l", e.detail.id);
-        navigate("/app/list/", e.target);
-      });
-      result.forEach(item => {
-        selectList.add({ id: item.id, name: item.name });
-      });
-      div.appendChild(selectList);
-      // Append floating button
-      div.appendChild(floatingButton());
-      // Append form dialog
-      div.appendChild(form());
-      return resolve(div);
-    })
-  );
+  new Promise(resolve => {
+    div.append(updateList(div));
+    div.append(floatingButton());
+    div.append(form());
+
+    resolve(div);
+  });
 export default render;
