@@ -51,19 +51,6 @@ document.addEventListener("DOMContentLoaded", e => {
     loadpath(url.pathname, mountElement);
     e.preventDefault();
   });
-
-  /*
-  addListener(document.querySelector("main"), "select-list", (e, elm) => {
-    let path =
-      elm.getAttribute("data-path") !== null
-        ? elm.getAttribute("data-path")
-        : "/app/";
-    let url = new URL(location.origin + path);
-    history.pushState({}, url.pathname, location.origin + url.pathname);
-    loadpath(url.pathname, mountElement);
-    e.preventDefault();
-  });
-  */
 });
 
 window.onpopstate = () => {

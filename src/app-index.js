@@ -42,12 +42,15 @@ const floatingButton = () => {
   return button;
 };
 
+const setState = (state) => state
+
 const render = () =>
   new Promise(resolve =>
     getAll().then(result => {
       title.setAttribute("title", "Index");
       div.innerHTML = "";
       let selectList = document.createElement("select-list");
+      selectList.setAttribute('data-bind', 'list')
       selectList.addEventListener("select", e => {
         e.preventDefault();
         localStorage.setItem("_l", e.detail.id);

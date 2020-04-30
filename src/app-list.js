@@ -7,7 +7,7 @@ import { navigate } from "./utils/navigation.js";
 
 const title = document.querySelector("app-title");
 const floatingButton = document.createElement("button");
-floatingButton.text = `Add`;
+floatingButton.innerHTML = `Here`;
 
 const render = () =>
   new Promise(resolve => {
