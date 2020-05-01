@@ -6,7 +6,7 @@ import { get, add } from "./utils/dbfunc.js";
 import { navigate } from "./utils/navigation.js";
 
 const title = document.querySelector("app-title");
-const floatingButton = document.createElement("button");
+const floatingButton = document.createElement("floating-button");
 floatingButton.innerHTML = `Here`;
 
 const render = () =>
