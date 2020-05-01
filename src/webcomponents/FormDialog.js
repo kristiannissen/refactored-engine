@@ -4,10 +4,46 @@
 "use strict";
 
 const template = document.createElement("template");
-template.innerHTML = `<style></style>
+template.innerHTML = `
+<style>
+  dialog {
+    max-height: 360px;
+    min-width: 240px;
+    max-width: 240px;
+    border-radius: 4px;
+    border: none;
+  }
+  .dialog__title {
+    margin-top: 0px;
+    line-height: 2rem;
+    font-size: 1.25rem;
+    font-weight: 500;
+    letter-spacing: 0.125rem;
+    position: relative;
+    margin: 0;
+    padding: 0 24px 9px;
+  }
+  form {
+    padding: 0 24px 9px;
+  }
+  .dialog__actions {
+    display: flex;
+    position: relative;
+    flex-shrink: wrap;
+    align-items: center;
+    justify-content: flex-end;
+    min-height: 52px;
+    margin: 0;
+    padding: 0;
+  }
+</style>
 <dialog>
+  <h2 class="dialog__title">Form Title</h2>
   <form method="dialog" id="form">
-  <button type="submit">Save</button>
+  <footer class="dialog__actions">
+    <button type="submit">Save</button>
+    <button type="reset">Cancel</button>
+  </footer>
   </form>
 </dialog>`;
 
@@ -38,6 +74,9 @@ class FormDialog extends HTMLElement {
       });
       this.dispatchEvent(customEvent);
     });
+    this.dialog
+      .querySelector("[type='reset']")
+      .addEventListener("click", e => this.dialog.close());
   }
 
   formData() {
