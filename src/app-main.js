@@ -22,12 +22,12 @@ const routes = [
   ],
   mountElement = document.querySelector("main");
 
-const loadpath = (path, elm) => {
+const loadpath = path => {
   let route = routes.find(r => r.uri === path);
-  mountElement.firstChild.remove();
-  import(`./${route.module}`).then(mod =>
-    mod.default().then(node => mountElement.appendChild(node))
-  );
+  import(`./${route.module}`).then(node => {
+    mountElement.innerHTML = "";
+    mountElement.append(node.render());
+  });
 };
 
 const addListener = (rootElm, sel, func) => {
@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", e => {
 });
 
 window.onpopstate = () => {
-  loadpath(window.location.pathname, mountElement);
+  loadpath(window.location.pathname);
 };
 
 if ("serviceWorker" in navigator) {

@@ -5,10 +5,6 @@
 import { getAll, add } from "./utils/dbfunc";
 import { navigate } from "./utils/navigation";
 import { publish, subscribe } from "./utils/pubsub";
-
-const div = document.createElement("div");
-const key = Math.floor(Math.random() * new Date().getTime());
-div.setAttribute("data-key", key);
 /**
  * create the form-dialog to add new lists
  */
@@ -45,7 +41,7 @@ const floatingButton = () => {
 /*
  * the meat and potatoes
  */
-const updateList = elm => {
+const updateList = () => {
   let selectList = document.createElement("select-list");
   subscribe("list-change", payload => {
     payload.forEach(item => selectList.add({ id: item.id, name: item.name }));
@@ -58,18 +54,18 @@ const updateList = elm => {
   return selectList;
 };
 /*
- * Initial state
- */
-getAll().then(resp => publish("list-change", resp));
-/*
  * render the UI
  */
-const render = () =>
-  new Promise(resolve => {
-    div.append(updateList(div));
-    div.append(floatingButton());
-    div.append(form());
+const render = () => {
+  getAll().then(resp => publish("list-change", resp));
+  const div = document.createElement("div");
+  const key = Math.floor(Math.random() * new Date().getTime());
+  div.setAttribute("data-key", key);
 
-    resolve(div);
-  });
-export default render;
+  div.append(updateList());
+  div.append(floatingButton());
+  div.append(form());
+
+  return div;
+};
+export { render };
